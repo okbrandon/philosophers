@@ -6,7 +6,7 @@
 #    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/02/20 14:17:32 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/02/20 14:20:46 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,10 @@ BOLD			= \033[1m
 CLEAR			= \r\033[K
 
 # Executable and compilation
-NAME			= boilerplate
+NAME			= philo
 
 SRC_DIR			= ./srcs/
-SRCS			= boilerplate.c
+SRCS			= philo.c
 
 OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}

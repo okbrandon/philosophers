@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   boilerplate.h                                      :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/20 14:16:59 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/02/20 14:21:05 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BOILERPLATE_H
-# define BOILERPLATE_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdio.h>
 
