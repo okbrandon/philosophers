@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/21 16:32:46 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:56:08 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ typedef struct s_philosopher
 /**
  * ft_args_checker.c
  */
-int	ft_check_args(int argc, char **argv);
+int		ft_check_args(int argc, char **argv);
 
 /**
  * ft_args_parser.c
  */
-int	ft_parse_args(t_parameters *param, char **argv);
+int		ft_parse_args(t_parameters *param, char **argv);
 
 /*
  * ft_other_utils.c
