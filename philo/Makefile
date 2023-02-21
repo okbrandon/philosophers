@@ -6,7 +6,7 @@
 #    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/02/20 14:20:46 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/02/21 16:34:12 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ CLEAR			= \r\033[K
 NAME			= philo
 
 SRC_DIR			= ./srcs/
-SRCS			= philo.c
+SRCS			= philo.c \
+				  ft_args_checker.c \
+				  ft_args_parser.c \
+				  ft_other_utils.c \
 
 OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}
@@ -39,7 +42,7 @@ ${OBJ_DIR}%.o:	${SRC_DIR}%.c
 all: 			$(NAME)
 
 $(NAME): 		$(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -pthread -o $(NAME)
 	@clear
 	@printf "${CLEAR}${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: ${RED}${BOLD}${NAME} ${RESET}compiled ${GREEN}successfully${RESET}.${GREY}\n${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}"
 
