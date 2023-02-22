@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/21 16:56:08 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/02/22 13:20:13 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_philosopher
 	int					id;
 	int					total_ate;
 	long				last_meal;
+	pthread_mutex_t		*mutex;
 	struct s_parameters	*parameters;
 }				t_philosopher;
 
