@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
+#    By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/02/21 16:34:12 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/02/23 15:30:11 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,15 +24,16 @@ NAME			= philo
 
 SRC_DIR			= ./srcs/
 SRCS			= philo.c \
-				  ft_args_checker.c \
-				  ft_args_parser.c \
+				  ft_args_handler.c \
+				  ft_initializer.c \
+				  ft_libft_utils.c \
 				  ft_other_utils.c \
 
 OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -arch x86_64
+CFLAGS			= -Wall -Wextra -Werror -arch x86_64 -g -fsanitize=address
 RM				= rm -rf
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c

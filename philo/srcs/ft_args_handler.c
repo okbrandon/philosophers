@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_args_checker.c                                  :+:      :+:    :+:   */
+/*   ft_args_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:11:36 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/21 15:49:34 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/02/24 20:52:12 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-static int	ft_is_arg_a_number(char *arg)
-{
-	int	i;
-
-	i = 0;
-	while (arg[i])
-	{
-		if (!(arg[i] >= '0' && arg[i] <= '9'))
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 int	ft_check_args(int argc, char **argv)
 {
@@ -37,9 +23,21 @@ int	ft_check_args(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (!ft_is_arg_a_number(argv[i]))
+		if (ft_atoi(argv[i]) <= 0)
 			return (ft_error("some arguments aren't valid", 0));
 		i++;
 	}
 	return (0);
+}
+
+void	ft_parse_args(t_parameters *param, char **argv)
+{
+	param->size = ft_atoi(argv[1]);
+	param->time_to_die = ft_atoi(argv[2]);
+	param->time_to_eat = ft_atoi(argv[3]);
+	param->time_to_sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		param->must_eat = ft_atoi(argv[5]);
+	else
+		param->must_eat = -1;
 }

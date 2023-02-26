@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_other_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/21 16:32:31 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/02/24 21:51:48 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,47 +21,25 @@ int	ft_error(char *message, int help_needed)
 	return (EXIT_FAILURE);
 }
 
-int	ft_atoi(char *str)
+int	ft_timestamp(void)
 {
-	int	i;
-	int	sign;
-	int	result;
+	struct timeval	timeval;
 
-	i = 0;
-	sign = 1;
-	result = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
-		|| str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + str[i] - '0';
-		i++;
-	}
-	return (result * sign);
+	gettimeofday(&timeval, NULL);
+	return ((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000));
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	ft_safe_exit(t_parameters param)
 {
-	void	*pointer;
-	size_t	i;
+	int	i;
 
-	if (size && SIZE_MAX / size < count)
-		return (NULL);
-	pointer = (void *) malloc(count * size);
-	if (!pointer)
-		return (NULL);
 	i = 0;
-	while (i < count * size)
+	while (i < param.size)
 	{
-		*(unsigned char *)(pointer + i) = 0;
+		pthread_mutex_destroy(&param.philosophers[i].fork_mutex);
+		// pthread_detach(philosophers[i].thread);
+		printf("philosopher %d destroyed\n", i + 1);
 		i++;
 	}
-	return (pointer);
+	free(param.philosophers);
 }
