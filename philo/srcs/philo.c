@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/24 21:39:48 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/02/26 20:36:52 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ int	main(int argc, char **argv)
 
 	if (ft_check_args(argc, argv))
 		return (1);
-	ft_parse_args(&param, argv);
-	param.start_time = ft_timestamp();
+	param = ft_parameters_init(argv);
 	philosophers = ft_philosophers_init(&param);
 	if (!philosophers)
 		return (1);
