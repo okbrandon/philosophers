@@ -3,46 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/26 20:36:52 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:10:19 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_display_params(t_parameters *param)
+void	ft_display_params(t_data *data)
 {
-	if (!param)
+	if (!data)
 		return ;
 	printf("%s%sphilosophers %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		param->size, RESET);
+		data->size, RESET);
 	printf("%s%stime_to_die %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		param->time_to_die, RESET);
+		data->time_to_die, RESET);
 	printf("%s%stime_to_eat %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		param->time_to_eat, RESET);
+		data->time_to_eat, RESET);
 	printf("%s%stime_to_sleep %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		param->time_to_sleep, RESET);
+		data->time_to_sleep, RESET);
 	printf("%s%smust_eat %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		param->must_eat, RESET);
+		data->must_eat, RESET);
 	printf("%s%sstart_time %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		param->start_time, RESET);
+		data->start_time, RESET);
 }
 
 int	main(int argc, char **argv)
 {
-	t_parameters	param;
-	t_philosopher	*philosophers;
+	t_data			*data;
 
 	if (ft_check_args(argc, argv))
 		return (1);
-	param = ft_parameters_init(argv);
-	philosophers = ft_philosophers_init(&param);
-	if (!philosophers)
+	data = ft_data_init(argv);
+	if (!data)
 		return (1);
-	param.philosophers = philosophers;
-	ft_display_params(&param);
-	ft_safe_exit(param);
+	data->philosophers = ft_philosophers_init(data);
+	if (!data->philosophers)
+		return (1);
+	ft_display_params(data);
+	ft_safe_exit(data);
 	return (0);
 }

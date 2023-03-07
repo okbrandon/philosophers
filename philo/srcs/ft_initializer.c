@@ -3,46 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initializer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/27 15:32:49 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:14:54 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-t_parameters	ft_parameters_init(char **argv)
+t_philosophers	*ft_philosophers_init(t_data *data)
 {
-	t_parameters	param;
-
-	ft_parse_args(&param, argv);
-	param.start_time = ft_timestamp();
-	param.dead = 0;
-	pthread_mutex_init(&param.print_mutex, NULL);
-	return (param);
-}
-
-t_philosopher	*ft_philosophers_init(t_parameters *param)
-{
-	t_philosopher	*philosophers;
+	t_philosophers	*philos;
 	int				i;
 
-	philosophers = ft_calloc(param->size, sizeof(t_philosopher));
-	if (!philosophers)
+	philos = ft_calloc(1, sizeof(t_philosophers));
+	if (!philos)
 	{
 		ft_error("philosophers allocation went wrong", 0);
 		return (NULL);
 	}
+	philos->total_ate = ft_calloc(data->size, sizeof(int));
+	philos->last_meal = ft_calloc(data->size, sizeof(long));
+	philos->forks = ft_calloc(data->size, sizeof(pthread_mutex_t));
 	i = 0;
-	while (i < param->size)
+	while (i < data->size)
 	{
-		philosophers[i].id = i + 1;
-		philosophers[i].total_ate = 0;
-		philosophers[i].last_meal = 0;
-		pthread_mutex_init(&philosophers[i].fork_mutex, NULL);
-		printf("philosopher %d initialized\n", i + 1);
+		pthread_mutex_init(&philos->forks[i], NULL);
+		printf("philosopher's fork (%d) has been initialized\n", i + 1);
 		i++;
 	}
-	return (philosophers);
+	return (philos);
+}
+
+t_data	*ft_data_init(char **argv)
+{
+	t_data	*data;
+
+	data = ft_calloc(1, sizeof(t_data));
+	if (!data)
+	{
+		ft_error("data allocation went wrong", 0);
+		return (NULL);
+	}
+	ft_parse_args(data, argv);
+	data->start_time = ft_timestamp();
+	data->is_there_a_dead = 0;
+	pthread_mutex_init(&data->print_mutex, NULL);
+	return (data);
 }

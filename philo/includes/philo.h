@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/02/27 15:34:49 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/07 11:10:06 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@
 # define SLEEPING	"is sleeping"
 # define THINKING	"is thinking"
 
-typedef struct s_philosopher
+typedef struct s_philosophers
 {
-	int					id;
-	int					total_ate;
-	long				last_meal;
-	pthread_mutex_t		fork_mutex;
-}				t_philosopher;
+	int					*total_ate;
+	long				*last_meal;
+	pthread_mutex_t		*forks;
+}				t_philosophers;
 
-typedef struct s_parameters
+typedef struct s_data
 {
 	int						start_time;
 	int						size;
@@ -50,22 +49,22 @@ typedef struct s_parameters
 	int						time_to_eat;
 	int						time_to_sleep;
 	int						must_eat;
-	int						dead;
+	int						is_there_a_dead;
 	pthread_mutex_t			print_mutex;
-	struct s_philosopher	*philosophers;
-}				t_parameters;
+	struct s_philosophers	*philosophers;
+}				t_data;
 
 /**
  * ft_args_handler.c
  */
 int				ft_check_args(int argc, char **argv);
-void			ft_parse_args(t_parameters *param, char **argv);
+void			ft_parse_args(t_data *data, char **argv);
 
 /**
  * ft_initializer.c
 */
-t_parameters	ft_parameters_init(char **argv);
-t_philosopher	*ft_philosophers_init(t_parameters *param);
+t_data			*ft_data_init(char **argv);
+t_philosophers	*ft_philosophers_init(t_data *data);
 
 /**
  * ft_libft_utils.c
@@ -78,8 +77,8 @@ void			*ft_calloc(size_t count, size_t size);
  */
 int				ft_error(char *message, int help_needed);
 int				ft_timestamp(void);
-void			ft_print_action(t_parameters param, int id, char *action);
-void			ft_usleep(unsigned int time, t_parameters param);
-void			ft_safe_exit(t_parameters param);
+void			ft_print_action(t_data *data, int id, char *action);
+void			ft_usleep(unsigned int time, t_data *data);
+void			ft_safe_exit(t_data *data);
 
 #endif
