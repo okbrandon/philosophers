@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/07 11:10:06 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:39:30 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@
 # define EATING		"is eating"
 # define SLEEPING	"is sleeping"
 # define THINKING	"is thinking"
+# define DIED		"died"
 
 typedef struct s_philosophers
 {
 	int					*total_ate;
 	long				*last_meal;
 	pthread_mutex_t		*forks;
+	pthread_t			*threads;
 }				t_philosophers;
 
 typedef struct s_data
@@ -50,7 +52,11 @@ typedef struct s_data
 	int						time_to_sleep;
 	int						must_eat;
 	int						is_there_a_dead;
+	int						is_simulating;
+	int						current_philo_id;
 	pthread_mutex_t			print_mutex;
+	pthread_mutex_t			var_modification;
+	pthread_mutex_t			philo_life_init;
 	struct s_philosophers	*philosophers;
 }				t_data;
 
