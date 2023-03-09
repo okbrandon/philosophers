@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/08 10:39:44 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:38:16 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ t_philosophers	*ft_philosophers_init(t_data *data)
 	philos->threads = ft_calloc(data->size, sizeof(pthread_t));
 	i = 0;
 	while (i < data->size)
-	{
-		pthread_mutex_init(&philos->forks[i], NULL);
-		printf("philosopher's fork (%d) has been initialized\n", i + 1);
-		i++;
-	}
+		pthread_mutex_init(&philos->forks[i++], NULL);
 	return (philos);
 }
 

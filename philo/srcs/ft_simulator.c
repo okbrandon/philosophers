@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/09 18:38:06 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:33:35 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,4 @@ void	ft_run_death_checker(t_data *data)
 		ft_usleep(1, data);
 	}
 	pthread_mutex_lock(&data->print_mutex);
-	printf("everyone's done eating.\n");
 }

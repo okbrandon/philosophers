@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/09 18:00:32 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/09 19:39:08 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_timestamp(void)
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 {
 	pthread_mutex_lock(&data->print_mutex);
-	printf("%dms %d %s\n", \
+	printf("%-6d %6d %s\n", \
 		ft_timestamp() - data->start_time, id, action);
 	if (do_unlock)
 		pthread_mutex_unlock(&data->print_mutex);
@@ -69,7 +69,6 @@ void	ft_safe_exit(t_data *data)
 	{
 		pthread_mutex_destroy(&data->philosophers->forks[i]);
 		pthread_detach(data->philosophers->threads[i]);
-		printf("philosopher %d got bonked\n", i + 1);
 		i++;
 	}
 	free(data->philosophers->forks);
