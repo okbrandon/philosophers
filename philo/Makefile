@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/02/23 15:30:11 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/03/09 18:38:34 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS			= philo.c \
 				  ft_initializer.c \
 				  ft_libft_utils.c \
 				  ft_other_utils.c \
+				  ft_simulator.c \
 
 OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}

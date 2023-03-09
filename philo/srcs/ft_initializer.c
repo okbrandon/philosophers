@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/07 11:14:54 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/08 10:39:44 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_philosophers	*ft_philosophers_init(t_data *data)
 	philos->total_ate = ft_calloc(data->size, sizeof(int));
 	philos->last_meal = ft_calloc(data->size, sizeof(long));
 	philos->forks = ft_calloc(data->size, sizeof(pthread_mutex_t));
+	philos->threads = ft_calloc(data->size, sizeof(pthread_t));
 	i = 0;
 	while (i < data->size)
 	{
@@ -49,6 +50,10 @@ t_data	*ft_data_init(char **argv)
 	ft_parse_args(data, argv);
 	data->start_time = ft_timestamp();
 	data->is_there_a_dead = 0;
+	data->current_philo_id = 0;
+	data->is_simulating = 1;
 	pthread_mutex_init(&data->print_mutex, NULL);
+	pthread_mutex_init(&data->var_modification, NULL);
+	pthread_mutex_init(&data->philo_life_init, NULL);
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/07 11:10:19 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:36:21 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_display_params(t_data *data)
 		data->must_eat, RESET);
 	printf("%s%sstart_time %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
 		data->start_time, RESET);
+	printf("%s%sinitialization took %s%dms\n", RED, BOLD, RESET, \
+		(ft_timestamp() - data->start_time));
 }
 
 int	main(int argc, char **argv)
@@ -42,7 +44,9 @@ int	main(int argc, char **argv)
 	data->philosophers = ft_philosophers_init(data);
 	if (!data->philosophers)
 		return (1);
-	ft_display_params(data);
+	ft_run_simulation(data);
+	ft_run_death_checker(data);
+	ft_usleep(100, data);
 	ft_safe_exit(data);
 	return (0);
 }

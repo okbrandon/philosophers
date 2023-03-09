@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/08 10:39:30 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:37:38 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define SLEEPING	"is sleeping"
 # define THINKING	"is thinking"
 # define DIED		"died"
+
+# define TRUE		1
+# define FALSE		0
 
 typedef struct s_philosophers
 {
@@ -83,8 +86,15 @@ void			*ft_calloc(size_t count, size_t size);
  */
 int				ft_error(char *message, int help_needed);
 int				ft_timestamp(void);
-void			ft_print_action(t_data *data, int id, char *action);
+void			ft_print_action(t_data *data, int id, char *action, \
+								int do_unlock);
 void			ft_usleep(unsigned int time, t_data *data);
 void			ft_safe_exit(t_data *data);
+
+/*
+ * ft_simulator.c
+ */
+void			ft_run_death_checker(t_data *data);
+void			ft_run_simulation(t_data *data);
 
 #endif
