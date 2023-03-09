@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/07 11:16:56 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/09 18:00:32 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,28 @@ int	ft_timestamp(void)
 	return ((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000));
 }
 
-void	ft_print_action(t_data *data, int id, char *action)
+void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 {
 	pthread_mutex_lock(&data->print_mutex);
 	printf("%dms %d %s\n", \
 		ft_timestamp() - data->start_time, id, action);
-	pthread_mutex_unlock(&data->print_mutex);
+	if (do_unlock)
+		pthread_mutex_unlock(&data->print_mutex);
 }
 
 void	ft_usleep(unsigned int time, t_data *data)
 {
-	unsigned int	start_time;
+	unsigned int	end_time;
 
-	start_time = ft_timestamp();
-	while (ft_timestamp() - start_time < time)
+	if (time > 0)
 	{
-		if (data->is_there_a_dead)
-			return ;
-		usleep(1000);
+		end_time = ft_timestamp() + time;
+		while ((unsigned int) ft_timestamp() < end_time)
+		{
+			if (data->is_there_a_dead || !data->is_simulating)
+				return ;
+			usleep(data->size * 2);
+		}
 	}
 }
 
@@ -58,15 +62,19 @@ void	ft_safe_exit(t_data *data)
 	int	i;
 
 	i = 0;
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->var_modification);
+	pthread_mutex_destroy(&data->philo_life_init);
 	while (i < data->size)
 	{
 		pthread_mutex_destroy(&data->philosophers->forks[i]);
-		printf("philosopher %d destroyed\n", i + 1);
+		pthread_detach(data->philosophers->threads[i]);
+		printf("philosopher %d got bonked\n", i + 1);
 		i++;
 	}
 	free(data->philosophers->forks);
 	free(data->philosophers->last_meal);
 	free(data->philosophers->total_ate);
+	free(data->philosophers->threads);
 	free(data->philosophers);
-	pthread_mutex_destroy(&data->print_mutex);
 }
