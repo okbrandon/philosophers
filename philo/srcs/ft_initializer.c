@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/09 19:38:16 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:07:23 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_data	*ft_data_init(char **argv)
 	}
 	ft_parse_args(data, argv);
 	data->start_time = ft_timestamp();
-	data->is_there_a_dead = 0;
 	data->current_philo_id = 0;
 	data->is_simulating = 1;
 	pthread_mutex_init(&data->print_mutex, NULL);

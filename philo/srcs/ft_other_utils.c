@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/09 19:39:08 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/10 13:28:57 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	ft_safe_exit(t_data *data)
 {
 	int	i;
 
-	i = 0;
 	pthread_mutex_destroy(&data->print_mutex);
 	pthread_mutex_destroy(&data->var_modification);
 	pthread_mutex_destroy(&data->philo_life_init);
+	i = 0;
 	while (i < data->size)
 	{
 		pthread_mutex_destroy(&data->philosophers->forks[i]);
