@@ -6,31 +6,11 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/12 11:54:02 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/12 17:21:36 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-void	ft_display_params(t_data *data)
-{
-	if (!data)
-		return ;
-	printf("%s%sphilosophers %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		data->size, RESET);
-	printf("%s%stime_to_die %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		data->time_to_die, RESET);
-	printf("%s%stime_to_eat %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		data->time_to_eat, RESET);
-	printf("%s%stime_to_sleep %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		data->time_to_sleep, RESET);
-	printf("%s%smust_eat %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		data->must_eat, RESET);
-	printf("%s%sstart_time %s» %s%s%d%s\n", RED, BOLD, RESET, RED, BOLD, \
-		data->start_time, RESET);
-	printf("%s%sinitialization took %s%dms\n", RED, BOLD, RESET, \
-		(ft_timestamp() - data->start_time));
-}
 
 int	main(int argc, char **argv)
 {
