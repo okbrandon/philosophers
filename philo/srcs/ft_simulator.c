@@ -6,11 +6,29 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/10 21:06:41 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/12 11:41:04 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static void	ft_run_ate_checker(t_data *data)
+{
+	int	i;
+
+	if (data->is_simulating && data->must_eat > 0)
+	{
+		i = 0;
+		while (i < data->size)
+		{
+			if (data->philosophers->total_ate[i] < data->must_eat)
+				break ;
+			i++;
+		}
+		if (i >= data->size)
+			data->is_simulating = FALSE;
+	}
+}
 
 static void	ft_handle_philo_life(t_data *data)
 {
@@ -32,6 +50,7 @@ static void	ft_handle_philo_life(t_data *data)
 		data->philosophers->total_ate[i]++;
 		pthread_mutex_unlock(&data->philosophers->forks[i]);
 		pthread_mutex_unlock(&data->philosophers->forks[(i + 1) % data->size]);
+		ft_run_ate_checker(data);
 		if (!data->is_simulating)
 			return ;
 		ft_print_action(data, (i + 1), SLEEPING, TRUE);

@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/12 11:21:28 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/12 12:04:01 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int	ft_error(char *message, int help_needed)
 	printf("%s%s%sAn error occurred: %s%s\n", \
 		RESET, RED, BOLD, RESET, message);
 	if (help_needed)
-		printf("%s[%s%s?%s] %s\n", RESET, RED, BOLD, RESET, COMMAND);
+		printf("---\n%s%s[%s%s?%s%s]%s Need help?\n%s»%s%s»%s%s»%s %s\n", \
+			RESET, BOLD, RED, BOLD, RESET, BOLD, \
+			RESET, BOLD, RED, BOLD, RESET, BOLD, RESET, COMMAND);
 	return (EXIT_FAILURE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:11:36 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/09 18:15:58 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/12 12:04:32 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_check_args(int argc, char **argv)
 	if (argc < 5)
 		return (ft_error("not enough arguments", 1));
 	if (argc > 6)
-		return (ft_error("too much arguments", 1));
+		return (ft_error("too many arguments", 1));
 	i = 1;
 	while (i < argc)
 	{

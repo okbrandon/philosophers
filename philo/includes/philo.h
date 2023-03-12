@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/10 21:07:18 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/12 11:55:23 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define RESET 		"\033[0m"
 # define BOLD 		"\033[1m"
 
-# define COMMAND	"./philo <number_of_philosophers> <time_to_die> <time_to_eat> \
-<time_to_sleep> <(number_of_times_each_philosopher_must_eat)>"
+# define COMMAND	"./philo [<philo_num>] [<time_to_die>] [<time_to_eat>] \
+[<time_to_sleep>] (<times_each_philo_must_eat>)"
 # define TOOK_FORK	"has taken a fork"
 # define EATING		"is eating"
 # define SLEEPING	"is sleeping"
