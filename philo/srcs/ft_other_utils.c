@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/10 13:28:57 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/12 11:21:28 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_usleep(unsigned int time, t_data *data)
 		end_time = ft_timestamp() + time;
 		while ((unsigned int) ft_timestamp() < end_time)
 		{
-			if (data->is_there_a_dead || !data->is_simulating)
+			if (!data->is_simulating)
 				return ;
 			usleep(data->size * 2);
 		}
