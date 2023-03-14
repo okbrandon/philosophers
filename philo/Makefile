@@ -6,7 +6,7 @@
 #    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/03/12 11:53:26 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/03/13 11:23:59 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -arch x86_64 #-g -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -arch x86_64 -g -fsanitize=thread
 RM				= rm -rf
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c

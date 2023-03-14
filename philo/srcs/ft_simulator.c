@@ -6,13 +6,13 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/12 11:41:04 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/14 15:04:29 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	ft_run_ate_checker(t_data *data)
+void	ft_run_ate_checker(t_data *data)
 {
 	int	i;
 
@@ -30,6 +30,23 @@ static void	ft_run_ate_checker(t_data *data)
 	}
 }
 
+static void	ft_handle_philo_eat(t_data *data, int i)
+{
+	pthread_mutex_lock(&data->philosophers->forks[i]);
+	ft_print_action(data, (i + 1), TOOK_FORK, TRUE);
+	pthread_mutex_lock(&data->philosophers->forks[(i + 1) % data->size]);
+	ft_print_action(data, (i + 1), TOOK_FORK, TRUE);
+	ft_print_action(data, (i + 1), EATING, TRUE);
+	pthread_mutex_lock(&data->var_modification);
+	data->philosophers->last_meal[i] = (ft_timestamp() - data->start_time);
+	pthread_mutex_unlock(&data->var_modification);
+	ft_usleep(data->time_to_eat, data);
+	data->philosophers->total_ate[i]++;
+	pthread_mutex_unlock(&data->philosophers->forks[i]);
+	pthread_mutex_unlock(&data->philosophers->forks[(i + 1) % data->size]);
+	ft_run_ate_checker(data);
+}
+
 static void	ft_handle_philo_life(t_data *data)
 {
 	int	i;
@@ -40,17 +57,7 @@ static void	ft_handle_philo_life(t_data *data)
 		ft_usleep(1, data);
 	while (data->is_simulating)
 	{
-		pthread_mutex_lock(&data->philosophers->forks[i]);
-		ft_print_action(data, (i + 1), TOOK_FORK, TRUE);
-		pthread_mutex_lock(&data->philosophers->forks[(i + 1) % data->size]);
-		ft_print_action(data, (i + 1), TOOK_FORK, TRUE);
-		ft_print_action(data, (i + 1), EATING, TRUE);
-		data->philosophers->last_meal[i] = (ft_timestamp() - data->start_time);
-		ft_usleep(data->time_to_eat, data);
-		data->philosophers->total_ate[i]++;
-		pthread_mutex_unlock(&data->philosophers->forks[i]);
-		pthread_mutex_unlock(&data->philosophers->forks[(i + 1) % data->size]);
-		ft_run_ate_checker(data);
+		ft_handle_philo_eat(data, i);
 		if (!data->is_simulating)
 			return ;
 		ft_print_action(data, (i + 1), SLEEPING, TRUE);
@@ -68,8 +75,8 @@ void	ft_run_simulation(t_data *data)
 	{
 		pthread_mutex_lock(&data->philo_life_init);
 		data->current_philo_id = i;
-		pthread_create(&data->philosophers->threads[i], NULL, \
-			(void *) ft_handle_philo_life, data);
+		pthread_create(&data->philosophers->threads[data->current_philo_id], \
+			NULL, (void *) ft_handle_philo_life, data);
 		i++;
 	}
 }
@@ -84,14 +91,16 @@ void	ft_run_death_checker(t_data *data)
 		i = -1;
 		while (++i < data->size)
 		{
+			pthread_mutex_lock(&data->var_modification);
 			difference = (ft_timestamp() - data->start_time) \
 				- data->philosophers->last_meal[i];
 			if (difference >= data->time_to_die)
 			{
-				data->is_simulating = FALSE;
+				/* data->is_simulating = FALSE; */
 				ft_print_action(data, (i + 1), DIED, FALSE);
 				return ;
 			}
+			pthread_mutex_unlock(&data->var_modification);
 		}
 		ft_usleep(1, data);
 	}
