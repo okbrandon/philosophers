@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/12 12:04:01 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:51:45 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	ft_timestamp(void)
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 {
 	pthread_mutex_lock(&data->print_mutex);
-	printf("%-6d %6d %s\n", \
-		ft_timestamp() - data->start_time, id, action);
+	if (DO_PRINT)
+		printf("%-6d %6d %s\n", \
+			ft_timestamp() - data->start_time, id, action);
 	if (do_unlock)
 		pthread_mutex_unlock(&data->print_mutex);
 }
@@ -50,7 +51,7 @@ void	ft_usleep(unsigned int time, t_data *data)
 		while ((unsigned int) ft_timestamp() < end_time)
 		{
 			if (!data->is_simulating)
-				return ;
+				break ;
 			usleep(data->size * 2);
 		}
 	}
@@ -65,6 +66,7 @@ void	ft_safe_exit(t_data *data)
 
 	pthread_mutex_destroy(&data->print_mutex);
 	pthread_mutex_destroy(&data->var_modification);
+	pthread_mutex_destroy(&data->var_read);
 	pthread_mutex_destroy(&data->philo_life_init);
 	i = 0;
 	while (i < data->size)

@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/12 11:55:23 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:25:32 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define TRUE		1
 # define FALSE		0
 
+# define DO_PRINT	TRUE
+
 typedef struct s_philosophers
 {
 	int					*total_ate;
@@ -58,6 +60,7 @@ typedef struct s_data
 	int						current_philo_id;
 	pthread_mutex_t			print_mutex;
 	pthread_mutex_t			var_modification;
+	pthread_mutex_t			var_read;
 	pthread_mutex_t			philo_life_init;
 	struct s_philosophers	*philosophers;
 }				t_data;

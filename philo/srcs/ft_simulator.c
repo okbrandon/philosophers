@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/14 15:04:29 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/17 19:51:39 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_run_ate_checker(t_data *data)
 {
 	int	i;
 
+	pthread_mutex_lock(&data->var_modification);
 	if (data->is_simulating && data->must_eat > 0)
 	{
 		i = 0;
@@ -28,6 +29,7 @@ void	ft_run_ate_checker(t_data *data)
 		if (i >= data->size)
 			data->is_simulating = FALSE;
 	}
+	pthread_mutex_unlock(&data->var_modification);
 }
 
 static void	ft_handle_philo_eat(t_data *data, int i)
@@ -49,20 +51,24 @@ static void	ft_handle_philo_eat(t_data *data, int i)
 
 static void	ft_handle_philo_life(t_data *data)
 {
-	int	i;
+	static int	i;
+	int			current_i;
 
-	i = data->current_philo_id;
+	pthread_mutex_lock(&data->philo_life_init);
+	current_i = i++;
 	pthread_mutex_unlock(&data->philo_life_init);
-	if (i % 2)
-		ft_usleep(1, data);
-	while (data->is_simulating)
+	if (current_i % 2)
+		ft_usleep(100, data);
+	while (1)
 	{
-		ft_handle_philo_eat(data, i);
+		ft_handle_philo_eat(data, current_i);
+		pthread_mutex_lock(&data->var_read);
 		if (!data->is_simulating)
 			return ;
-		ft_print_action(data, (i + 1), SLEEPING, TRUE);
+		pthread_mutex_unlock(&data->var_read);
+		ft_print_action(data, (current_i + 1), SLEEPING, TRUE);
 		ft_usleep(data->time_to_sleep, data);
-		ft_print_action(data, (i + 1), THINKING, TRUE);
+		ft_print_action(data, (current_i + 1), THINKING, TRUE);
 	}
 }
 
@@ -73,10 +79,12 @@ void	ft_run_simulation(t_data *data)
 	i = 0;
 	while (i < data->size)
 	{
-		pthread_mutex_lock(&data->philo_life_init);
-		data->current_philo_id = i;
-		pthread_create(&data->philosophers->threads[data->current_philo_id], \
-			NULL, (void *) ft_handle_philo_life, data);
+		if (pthread_create(&data->philosophers->threads[i], NULL, \
+				(void *) ft_handle_philo_life, data) != 0)
+		{
+			ft_error("thread creation has failed", FALSE);
+			return ;
+		}
 		i++;
 	}
 }
@@ -96,7 +104,6 @@ void	ft_run_death_checker(t_data *data)
 				- data->philosophers->last_meal[i];
 			if (difference >= data->time_to_die)
 			{
-				/* data->is_simulating = FALSE; */
 				ft_print_action(data, (i + 1), DIED, FALSE);
 				return ;
 			}
