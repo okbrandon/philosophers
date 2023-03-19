@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/17 19:51:45 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:37:09 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 {
 	pthread_mutex_lock(&data->print_mutex);
 	if (DO_PRINT)
-		printf("%-6d %6d %s\n", \
-			ft_timestamp() - data->start_time, id, action);
+	{
+		if (id >= 0)
+			printf("%-6d %6d %s\n", \
+				ft_timestamp() - data->start_time, id, action);
+		else
+			printf("%-11d %s\n", \
+				ft_timestamp() - data->start_time, action);
+	}
 	if (do_unlock)
 		pthread_mutex_unlock(&data->print_mutex);
 }
@@ -76,6 +82,7 @@ void	ft_safe_exit(t_data *data)
 		i++;
 	}
 	free(data->philosophers->forks);
+	free(data->philosophers->done_eating);
 	free(data->philosophers->last_meal);
 	free(data->philosophers->total_ate);
 	free(data->philosophers->threads);

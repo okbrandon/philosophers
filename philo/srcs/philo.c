@@ -6,12 +6,15 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/17 14:46:08 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/19 13:02:52 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/* 	printf("%s%sjust left all threads%s\n", GREEN, BOLD, RESET);
+	ft_usleep(100, data);
+	printf("%s%severything has been left carefully%s\n", GREEN, BOLD, RESET);*/
 int	main(int argc, char **argv)
 {
 	t_data			*data;
@@ -26,9 +29,6 @@ int	main(int argc, char **argv)
 		return (1);
 	ft_run_simulation(data);
 	ft_run_death_checker(data);
-	printf("%s%sjust left all threads%s\n", GREEN, BOLD, RESET);
-	ft_usleep(100, data);
 	ft_safe_exit(data);
-	printf("%s%severything has been left carefully%s\n", GREEN, BOLD, RESET);
 	return (0);
 }

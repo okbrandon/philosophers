@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/17 14:25:53 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/18 11:44:27 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_philosophers	*ft_philosophers_init(t_data *data)
 		return (NULL);
 	}
 	philos->total_ate = ft_calloc(data->size, sizeof(int));
+	philos->done_eating = ft_calloc(data->size, sizeof(int));
 	philos->last_meal = ft_calloc(data->size, sizeof(long));
 	philos->forks = ft_calloc(data->size, sizeof(pthread_mutex_t));
 	philos->threads = ft_calloc(data->size, sizeof(pthread_t));

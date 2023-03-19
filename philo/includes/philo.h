@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/17 14:25:32 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/19 11:35:40 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,21 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-# define RED 		"\033[0;31m"
-# define PURPLE 	"\033[38;5;141m"
-# define GREY 		"\033[38;5;240m"
-# define GREEN 		"\033[38;5;46m"
-# define RESET 		"\033[0m"
-# define BOLD 		"\033[1m"
+# define RED 			"\033[0;31m"
+# define PURPLE 		"\033[38;5;141m"
+# define GREY 			"\033[38;5;240m"
+# define GREEN 			"\033[38;5;46m"
+# define RESET 			"\033[0m"
+# define BOLD 			"\033[1m"
 
-# define COMMAND	"./philo [<philo_num>] [<time_to_die>] [<time_to_eat>] \
+# define COMMAND		"./philo [<philo_num>] [<time_to_die>] [<time_to_eat>] \
 [<time_to_sleep>] (<times_each_philo_must_eat>)"
-# define TOOK_FORK	"has taken a fork"
-# define EATING		"is eating"
-# define SLEEPING	"is sleeping"
-# define THINKING	"is thinking"
-# define DIED		"died"
+# define TOOK_FORK		"has taken a fork"
+# define EATING			"is eating"
+# define SLEEPING		"is sleeping"
+# define THINKING		"is thinking"
+# define DIED			"died"
+# define DONE_EATING	"philosophers are done eating"
 
 # define TRUE		1
 # define FALSE		0
@@ -43,6 +44,7 @@
 typedef struct s_philosophers
 {
 	int					*total_ate;
+	int					*done_eating;
 	long				*last_meal;
 	pthread_mutex_t		*forks;
 	pthread_t			*threads;
