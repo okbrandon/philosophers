@@ -6,7 +6,7 @@
 #    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/03/17 14:06:04 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/03/20 16:39:12 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,12 @@ OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -arch x86_64 -g -fsanitize=thread
+CFLAGS			= -Wall -Wextra -Werror -arch x86_64
 RM				= rm -rf
+
+ifdef DEBUG
+	CFLAGS += -g -fsanitize=thread
+endif
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
 	@printf "${CLEAR}${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: Compiling ${GREEN}%s${RESET}...${GREY}" ${notdir $<}
@@ -53,6 +57,10 @@ ${OBJS}:		| ${OBJ_DIR}
 ${OBJ_DIR}:
 	@mkdir ${OBJ_DIR}
 
+debug:
+	@make DEBUG=1 re
+	@printf "${RESET}${RED}${BOLD}Compilation done with data race detection${RESET}\n"
+
 clean:
 	@${RM} ${OBJ_DIR}
 	@printf "${CLEAR}${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: Objects were cleaned ${GREEN}successfully${RESET}.\n${RESET}"
@@ -63,5 +71,5 @@ fclean: 		clean
 
 re: fclean all
 
-.SILENT: all clean fclean re
-.PHONY: all clean fclean re
+.SILENT: all clean fclean re debug
+.PHONY: all clean fclean re debug
