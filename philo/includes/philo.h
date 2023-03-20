@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/19 11:35:40 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:48:47 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_data
 	int						time_to_eat;
 	int						time_to_sleep;
 	int						must_eat;
+	int						eat_count;
+	int						done_eating;
 	int						is_simulating;
 	int						current_philo_id;
 	pthread_mutex_t			print_mutex;
