@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/20 11:29:38 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:30:07 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv)
 		return (1);
 	ft_run_simulation(data);
 	ft_run_death_checker(data);
+	ft_usleep(100, data);
 	ft_safe_exit(data);
 	return (0);
 }

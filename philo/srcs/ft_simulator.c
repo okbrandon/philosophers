@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/20 11:37:48 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:29:09 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ void	ft_run_simulation(t_data *data)
 				(void *) ft_handle_philo_life, data) != 0)
 		{
 			ft_error("thread creation has failed", FALSE);
+			pthread_mutex_lock(&data->var_modification);
+			data->is_simulating = FALSE;
+			pthread_mutex_unlock(&data->var_modification);
 			return ;
 		}
 		i++;
