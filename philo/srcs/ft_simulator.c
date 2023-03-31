@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/21 20:29:09 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/03/31 11:42:35 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	ft_run_death_checker(t_data *data)
 				return ;
 			pthread_mutex_unlock(&data->var_modification);
 		}
-		ft_usleep(100, data);
+		ft_usleep(1, data);
 	}
 	pthread_mutex_lock(&data->print_mutex);
 }
