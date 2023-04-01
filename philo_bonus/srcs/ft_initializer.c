@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:24:15 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 18:16:09 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:42:08 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static t_philo	**ft_init_philosophers(t_data *data)
 			return (NULL);
 		philosophers[i]->data = data;
 		philosophers[i]->id = i;
-		sem_unlink("/eat_count");
-		philosophers[i]->eat_sem = sem_open("/eat_count", O_CREAT | O_EXCL, 0664, 1);
+		sem_unlink(PEAT_SEM_NAME);
+		philosophers[i]->eat_sem = sem_open(PEAT_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
 		if (philosophers[i]->eat_sem == SEM_FAILED)
 			return (NULL);
 	}

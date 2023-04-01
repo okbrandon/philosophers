@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 18:16:43 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/01 18:41:56 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define EAT_SEM_NAME	"/sem_eat"
 # define WRITE_SEM_NAME	"/sem_write"
 # define FORKS_SEM_NAME	"/sem_forks"
+# define PEAT_SEM_NAME	"/sem_eatcount"
 
 # define DO_PRINT	TRUE
 
