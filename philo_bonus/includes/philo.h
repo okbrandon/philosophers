@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 18:41:56 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/09 00:17:45 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <semaphore.h>
+# include <signal.h>
 
 # define RED 			"\033[0;31m"
 # define PURPLE 		"\033[38;5;141m"
@@ -52,7 +53,9 @@ typedef struct s_philo
 	pid_t			pid;
 	int				id;
 	int				last_meal;
+	int				eat_count;
 	sem_t			*eat_sem;
+	pthread_t		death_thread;
 	struct s_data	*data;
 }				t_philo;
 
@@ -67,6 +70,7 @@ typedef struct s_data
 	sem_t			*print_sem;
 	sem_t			*eat_sem;
 	sem_t			*forks_sem;
+	pthread_t		eat_thread;
 	struct s_philo	**philosophers;
 }				t_data;
 
@@ -77,11 +81,15 @@ t_data	*ft_data_init(char **argv);
 int		ft_check_args(int argc, char **argv);
 void	ft_parse_args(t_data *data, char **argv);
 
+/* simulator */
+void	ft_run_simulation(t_data *data);
+
 /* other utils */
 int		ft_error(char *message, int help_needed);
 int		ft_timestamp(void);
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock);
 void	ft_usleep(unsigned int time, t_data *data);
+void	ft_safe_exit(t_data *data);
 
 /* libft utils */
 int		ft_atoi(char *str);

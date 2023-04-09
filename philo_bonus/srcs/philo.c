@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:26:21 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 18:14:54 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 00:04:20 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,7 @@ int	main(int argc, char **argv)
 	data = ft_data_init(argv);
 	if (!data)
 		return (1);
+	ft_run_simulation(data);
+	ft_safe_exit(data);
 	return (0);
 }

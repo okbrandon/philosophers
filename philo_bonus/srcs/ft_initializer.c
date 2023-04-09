@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initializer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:24:15 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 18:42:08 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/08 23:11:41 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,26 @@ static int	ft_init_semaphores(t_data *data)
 
 static t_philo	**ft_init_philosophers(t_data *data)
 {
-	t_philo	**philosophers;
+	t_philo	**philos;
 	int		i;
 
-	philosophers = ft_calloc(data->size, sizeof(t_philo *));
-	if (!philosophers)
+	philos = ft_calloc(data->size, sizeof(t_philo *));
+	if (!philos)
 		return (NULL);
 	i = -1;
 	while (++i < data->size)
 	{
-		philosophers[i] = ft_calloc(1, sizeof(t_philo));
-		if (!philosophers[i])
+		philos[i] = ft_calloc(1, sizeof(t_philo));
+		if (!philos[i])
 			return (NULL);
-		philosophers[i]->data = data;
-		philosophers[i]->id = i;
+		philos[i]->data = data;
+		philos[i]->id = i;
 		sem_unlink(PEAT_SEM_NAME);
-		philosophers[i]->eat_sem = sem_open(PEAT_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
-		if (philosophers[i]->eat_sem == SEM_FAILED)
+		philos[i]->eat_sem = sem_open(PEAT_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
+		if (philos[i]->eat_sem == SEM_FAILED)
 			return (NULL);
 	}
-	return (philosophers);
+	return (philos);
 }
 
 t_data	*ft_data_init(char **argv)

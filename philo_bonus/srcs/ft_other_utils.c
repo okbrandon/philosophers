@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_other_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 18:16:25 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:35:51 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,28 @@ void	ft_usleep(unsigned int time, t_data *data)
 		while ((unsigned int) ft_timestamp() < end_time)
 			usleep(data->size * 2);
 	}
+}
+
+void	ft_safe_exit(t_data *data)
+{
+	int	i;
+	int	return_value;
+
+	i = -1;
+	waitpid(-1, &return_value, 0);
+	if (WIFEXITED(return_value) || WIFSIGNALED(return_value))
+	{
+		while (++i < data->size)
+		{
+			kill(data->philosophers[i]->pid, SIGKILL);
+			sem_close(data->philosophers[i]->eat_sem);
+		}
+	}
+	sem_unlink(EAT_SEM_NAME);
+	sem_unlink(FORKS_SEM_NAME);
+	sem_unlink(WRITE_SEM_NAME);
+	sem_unlink(PEAT_SEM_NAME);
+	sem_close(data->print_sem);
+	sem_close(data->forks_sem);
+	sem_close(data->eat_sem);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
+#    By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/04/01 16:24:45 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/04/08 23:02:23 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_DIR			= ./srcs/
 SRCS			= philo.c \
 				  ft_args_handler.c \
 				  ft_initializer.c \
+				  ft_simulator.c \
 				  ft_libft_utils.c \
 				  ft_other_utils.c \
 
