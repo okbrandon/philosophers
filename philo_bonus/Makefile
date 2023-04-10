@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+         #
+#    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/04/08 23:02:23 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/04/10 21:21:31 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ BOLD			= \033[1m
 CLEAR			= \r\033[K
 
 # Executable and compilation
-NAME			= philo_bonus
+NAME			= philo
 
 SRC_DIR			= ./srcs/
 SRCS			= philo.c \
@@ -50,7 +50,7 @@ all: 			$(NAME)
 $(NAME): 		$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -pthread -o $(NAME)
 	@clear
-	@printf "${CLEAR}${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: ${RED}${BOLD}${NAME} ${RESET}compiled ${GREEN}successfully${RESET}.${GREY}\n${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}"
+	@printf "${CLEAR}${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n${RESET}${GREEN}»${RESET} [${PURPLE}${BOLD}${NAME}${RESET}]: ${RED}${BOLD}${NAME} ${RESET}compiled ${GREEN}successfully${RESET}.${GREY}\n${RESET}${GREY}────────────────────────────────────────────────────────────────────────────\n\t\t(bonus edition)\n${RESET}"
 
 ${OBJS}:		| ${OBJ_DIR}
 
