@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/31 11:42:35 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:19:44 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_run_eat_checker(t_data *data)
 {
 	int	i;
 
-	if (data->must_eat <= 0)
+	if (data->must_eat < 0)
 		return (0);
 	i = -1;
 	data->done_eating = 0;
