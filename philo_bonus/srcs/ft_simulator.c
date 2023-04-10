@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simulator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 00:14:03 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:43:50 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void	*ft_run_eat_checker(t_data *data)
+/* static void	*ft_run_eat_checker(t_data *data)
 {
 	int	i;
 
@@ -24,7 +24,6 @@ static void	*ft_run_eat_checker(t_data *data)
 		i = 0;
 		while (i < data->size)
 		{
-			/* sem_wait(data->eat_sem); */
 			if (data->philosophers[i]->eat_count < data->must_eat)
 				break ;
 			i++;
@@ -38,9 +37,29 @@ static void	*ft_run_eat_checker(t_data *data)
 		ft_usleep(1, data);
 	}
 	return (NULL);
+} */
+
+static void	*ft_run_eat_checker(t_data *data)
+{
+	int	i;
+	int	done_eating;
+
+	if (data->must_eat <= 0)
+		return (NULL);
+	done_eating = 0;
+	while (done_eating < data->must_eat)
+	{
+		i = -1;
+		while (++i < data->size + 1)
+			sem_wait(data->total_ate_sem);
+		done_eating++;
+	}
+	ft_print_action(data, -1, DONE_EATING, FALSE);
+	exit(EXIT_SUCCESS);
+	return (NULL);
 }
 
-static void	*ft_death_checker(t_philo *philo)
+static void	*ft_run_death_checker(t_philo *philo)
 {
 	long	difference;
 
@@ -55,7 +74,6 @@ static void	*ft_death_checker(t_philo *philo)
 			exit(EXIT_SUCCESS);
 		}
 		sem_post(philo->eat_sem);
-		ft_usleep(1, philo->data);
 	}
 	return (NULL);
 }
@@ -68,8 +86,7 @@ static void	ft_handle_philo_eat(t_philo *philo)
 	ft_print_action(philo->data, (philo->id + 1), TOOK_FORK, TRUE);
 	ft_print_action(philo->data, (philo->id + 1), EATING, TRUE);
 	sem_wait(philo->eat_sem);
-	/* sem_post(philo->data->eat_sem); */
-	philo->eat_count++;
+	sem_post(philo->data->total_ate_sem);
 	philo->last_meal = ft_timestamp() - philo->data->start_time;
 	ft_usleep(philo->data->time_to_eat, philo->data);
 	sem_post(philo->data->forks_sem);
@@ -97,14 +114,14 @@ void	ft_run_simulation(t_data *data)
 	i = 0;
 	if (data->must_eat > 0)
 		pthread_create(&data->eat_thread, NULL, \
-			(void *) ft_run_eat_checker, data);
+				(void *) ft_run_eat_checker, data);
 	while (i < data->size)
 	{
 		data->philosophers[i]->pid = fork();
 		if (data->philosophers[i]->pid == 0)
 		{
 			pthread_create(&data->philosophers[i]->death_thread, NULL, \
-					(void *) ft_death_checker, data->philosophers[i]);
+					(void *) ft_run_death_checker, data->philosophers[i]);
 			ft_handle_philo_life(data->philosophers[i]);
 			exit(EXIT_SUCCESS);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/09 00:17:45 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:42:51 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@
 # define TRUE		1
 # define FALSE		0
 
-# define EAT_SEM_NAME	"/sem_eat"
+# define EAT_SEM_NAME	"/sem_eat_checker"
 # define WRITE_SEM_NAME	"/sem_write"
 # define FORKS_SEM_NAME	"/sem_forks"
-# define PEAT_SEM_NAME	"/sem_eatcount"
+# define PEAT_SEM_NAME	"/sem_eat_action"
 
 # define DO_PRINT	TRUE
 
@@ -53,9 +53,8 @@ typedef struct s_philo
 	pid_t			pid;
 	int				id;
 	int				last_meal;
-	int				eat_count;
-	sem_t			*eat_sem;
 	pthread_t		death_thread;
+	sem_t			*eat_sem;
 	struct s_data	*data;
 }				t_philo;
 
@@ -67,10 +66,10 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat;
-	sem_t			*print_sem;
-	sem_t			*eat_sem;
-	sem_t			*forks_sem;
 	pthread_t		eat_thread;
+	sem_t			*print_sem;
+	sem_t			*total_ate_sem;
+	sem_t			*forks_sem;
 	struct s_philo	**philosophers;
 }				t_data;
 

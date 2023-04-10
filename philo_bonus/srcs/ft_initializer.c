@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initializer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:24:15 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/08 23:11:41 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:42:29 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int	ft_init_semaphores(t_data *data)
 	sem_unlink(EAT_SEM_NAME);
 	sem_unlink(WRITE_SEM_NAME);
 	sem_unlink(FORKS_SEM_NAME);
-	data->eat_sem = sem_open(EAT_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
-	if (data->eat_sem == SEM_FAILED)
+	data->total_ate_sem = sem_open(EAT_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
+	if (data->total_ate_sem == SEM_FAILED)
 		return (1);
 	data->print_sem = sem_open(WRITE_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
 	if (data->print_sem == SEM_FAILED)

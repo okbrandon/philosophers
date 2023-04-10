@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_other_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/05 17:35:51 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:44:04 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ void	ft_safe_exit(t_data *data)
 	sem_unlink(PEAT_SEM_NAME);
 	sem_close(data->print_sem);
 	sem_close(data->forks_sem);
-	sem_close(data->eat_sem);
+	sem_close(data->total_ate_sem);
 }
