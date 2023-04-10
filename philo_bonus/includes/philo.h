@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 12:42:51 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:20:58 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@
 # define DIED			"died"
 # define DONE_EATING	"philosophers are done eating"
 
-# define TRUE		1
-# define FALSE		0
+# define TRUE			1
+# define FALSE			0
 
 # define EAT_SEM_NAME	"/sem_eat_checker"
 # define WRITE_SEM_NAME	"/sem_write"
 # define FORKS_SEM_NAME	"/sem_forks"
 # define PEAT_SEM_NAME	"/sem_eat_action"
 
-# define DO_PRINT	TRUE
+# define DO_PRINT		TRUE
 
 typedef struct s_philo
 {

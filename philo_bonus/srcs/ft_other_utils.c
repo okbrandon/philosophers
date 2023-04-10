@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 12:44:04 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:30:11 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	ft_safe_exit(t_data *data)
 	int	i;
 	int	return_value;
 
-	i = -1;
 	waitpid(-1, &return_value, 0);
 	if (WIFEXITED(return_value) || WIFSIGNALED(return_value))
 	{
+		i = -1;
 		while (++i < data->size)
 		{
 			kill(data->philosophers[i]->pid, SIGKILL);

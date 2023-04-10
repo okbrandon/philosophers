@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:08:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 14:08:25 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:40:38 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ int	ft_check_args(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_atoi(argv[i]) <= 0)
+		if (i == 5)
+		{
+			if (ft_atoi(argv[i]) < 0)
+				return (ft_error("some arguments aren't valid", 0));
+		}
+		else if (ft_atoi(argv[i]) <= 0)
 			return (ft_error("some arguments aren't valid", 0));
 		i++;
 	}

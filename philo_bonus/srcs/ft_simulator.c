@@ -6,45 +6,18 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 12:43:50 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/10 18:42:40 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
-/* static void	*ft_run_eat_checker(t_data *data)
-{
-	int	i;
-
-	if (data->must_eat <= 0)
-		return (NULL);
-	while (1)
-	{
-		sem_wait(data->eat_sem);
-		i = 0;
-		while (i < data->size)
-		{
-			if (data->philosophers[i]->eat_count < data->must_eat)
-				break ;
-			i++;
-		}
-		if (i >= data->size)
-		{
-			ft_print_action(data, -1, DONE_EATING, FALSE);
-			exit(EXIT_SUCCESS);
-		}
-		sem_post(data->eat_sem);
-		ft_usleep(1, data);
-	}
-	return (NULL);
-} */
 
 static void	*ft_run_eat_checker(t_data *data)
 {
 	int	i;
 	int	done_eating;
 
-	if (data->must_eat <= 0)
+	if (data->must_eat < 0 && data->size <= 1)
 		return (NULL);
 	done_eating = 0;
 	while (done_eating < data->must_eat)
@@ -55,6 +28,9 @@ static void	*ft_run_eat_checker(t_data *data)
 		done_eating++;
 	}
 	ft_print_action(data, -1, DONE_EATING, FALSE);
+	i = -1;
+	while (++i < data->size)
+		kill(data->philosophers[i]->pid, SIGKILL);
 	exit(EXIT_SUCCESS);
 	return (NULL);
 }
@@ -112,7 +88,7 @@ void	ft_run_simulation(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->must_eat > 0)
+	if (data->must_eat >= 0 && data->size > 1)
 		pthread_create(&data->eat_thread, NULL, \
 				(void *) ft_run_eat_checker, data);
 	while (i < data->size)
