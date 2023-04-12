@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 18:42:40 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/12 16:35:45 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ static void	*ft_run_eat_checker(t_data *data)
 	}
 	ft_print_action(data, -1, DONE_EATING, FALSE);
 	i = -1;
-	while (++i < data->size)
-		kill(data->philosophers[i]->pid, SIGKILL);
+	if (data->must_eat > 0)
+		while (++i < data->size)
+			kill(data->philosophers[i]->pid, SIGKILL);
 	exit(EXIT_SUCCESS);
 	return (NULL);
 }
@@ -50,6 +51,7 @@ static void	*ft_run_death_checker(t_philo *philo)
 			exit(EXIT_SUCCESS);
 		}
 		sem_post(philo->eat_sem);
+		ft_usleep(1, philo->data);
 	}
 	return (NULL);
 }
