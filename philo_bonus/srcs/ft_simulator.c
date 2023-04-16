@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 12:13:22 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 14:18:52 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ void	ft_run_simulation(t_data *data)
 {
 	int	i;
 
+	if (data->must_eat == 0)
+	{
+		ft_print_action(data, -1, DONE_EATING, FALSE);
+		return ;
+	}
 	i = 0;
 	while (i < data->size)
 	{

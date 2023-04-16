@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 11:53:34 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 14:19:33 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,16 @@ void	ft_safe_exit(t_data *data)
 	int	return_value;
 
 	waitpid(-1, &return_value, 0);
-	if (WIFEXITED(return_value) || WIFSIGNALED(return_value))
+	if (data->must_eat > 0)
 	{
-		i = -1;
-		while (++i < data->size)
+		if (WIFEXITED(return_value) || WIFSIGNALED(return_value))
 		{
-			kill(data->philosophers[i]->pid, SIGKILL);
-			sem_close(data->philosophers[i]->eat_sem);
+			i = -1;
+			while (++i < data->size)
+			{
+				kill(data->philosophers[i]->pid, SIGKILL);
+				sem_close(data->philosophers[i]->eat_sem);
+			}
 		}
 	}
 	sem_unlink(EAT_SEM_NAME);
