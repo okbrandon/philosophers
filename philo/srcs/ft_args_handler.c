@@ -6,11 +6,32 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:11:36 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 16:42:02 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:40:37 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+/**
+ * @brief Used to check if the current string is containing
+ *  only digits.
+ * 
+ * @param str				- string to check
+ * @return int				- returns its validity
+ */
+static int	ft_is_valid(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
 
 /**
  * @brief Used to verify the validity of each argument
@@ -30,6 +51,8 @@ int	ft_check_args(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
+		if (!ft_is_valid(argv[i]))
+			return (ft_error("some arguments aren't valid", 0));
 		if (i == 5)
 		{
 			if (ft_atoi(argv[i]) < 0)
@@ -39,7 +62,7 @@ int	ft_check_args(int argc, char **argv)
 			return (ft_error("some arguments aren't valid", 0));
 		i++;
 	}
-	return (0);
+	return (FALSE);
 }
 
 /**
