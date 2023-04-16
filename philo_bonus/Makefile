@@ -6,7 +6,7 @@
 #    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/04/10 21:21:31 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/04/16 12:27:20 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ CFLAGS			= -Wall -Wextra -Werror -arch x86_64
 RM				= rm -rf
 
 ifdef DEBUG
-	CFLAGS += -g -fsanitize=thread
+	CFLAGS += -fsanitize=thread
 endif
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c
