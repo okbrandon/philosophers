@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 18:20:58 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 11:53:37 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_philo
 {
 	pid_t			pid;
 	int				id;
-	int				last_meal;
+	struct timeval	last_meal;
 	pthread_t		death_thread;
 	sem_t			*eat_sem;
 	struct s_data	*data;
@@ -60,12 +60,12 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				start_time;
 	int				size;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat;
+	long			start_time;
 	pthread_t		eat_thread;
 	sem_t			*print_sem;
 	sem_t			*total_ate_sem;
@@ -85,7 +85,7 @@ void	ft_run_simulation(t_data *data);
 
 /* other utils */
 int		ft_error(char *message, int help_needed);
-int		ft_timestamp(void);
+long	ft_timestamp(void);
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock);
 void	ft_usleep(unsigned int time, t_data *data);
 void	ft_safe_exit(t_data *data);

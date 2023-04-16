@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/15 17:10:38 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:13:22 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ static void	*ft_run_eat_checker(t_data *data)
 static void	*ft_run_death_checker(t_philo *philo)
 {
 	long	difference;
+	long	last_meal;
 
 	while (1)
 	{
 		sem_wait(philo->eat_sem);
-		difference = (ft_timestamp() - philo->data->start_time) \
-				- philo->last_meal;
+		last_meal = (philo->last_meal.tv_sec * 1000) + \
+			(philo->last_meal.tv_usec / 1000);
+		difference = ft_timestamp() - philo->data->start_time - last_meal;
 		if (difference >= philo->data->time_to_die)
 		{
 			ft_print_action(philo->data, (philo->id + 1), DIED, FALSE);
@@ -63,10 +65,10 @@ static void	ft_handle_philo_eat(t_philo *philo)
 	sem_wait(philo->data->forks_sem);
 	ft_print_action(philo->data, (philo->id + 1), TOOK_FORK, TRUE);
 	ft_print_action(philo->data, (philo->id + 1), EATING, TRUE);
-	sem_wait(philo->eat_sem);
-	memset(&philo->last_meal, philo->data->start_time, sizeof(int));
-	ft_usleep(philo->data->time_to_eat, philo->data);
 	sem_post(philo->data->total_ate_sem);
+	sem_wait(philo->eat_sem);
+	gettimeofday(&philo->last_meal, NULL);
+	ft_usleep(philo->data->time_to_eat, philo->data);
 	sem_post(philo->data->forks_sem);
 	sem_post(philo->data->forks_sem);
 	sem_post(philo->eat_sem);
@@ -90,9 +92,6 @@ void	ft_run_simulation(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->must_eat >= 0 && data->size > 1)
-		pthread_create(&data->eat_thread, NULL, \
-				(void *) ft_run_eat_checker, data);
 	while (i < data->size)
 	{
 		data->philosophers[i]->pid = fork();
@@ -100,10 +99,12 @@ void	ft_run_simulation(t_data *data)
 		{
 			pthread_create(&data->philosophers[i]->death_thread, NULL, \
 					(void *) ft_run_death_checker, data->philosophers[i]);
-			/* pthread_detach(data->philosophers[i]->death_thread); */
 			ft_handle_philo_life(data->philosophers[i]);
 			exit(EXIT_SUCCESS);
 		}
 		i++;
 	}
+	if (data->must_eat >= 0 && data->size > 1)
+		pthread_create(&data->eat_thread, NULL, \
+				(void *) ft_run_eat_checker, data);
 }
