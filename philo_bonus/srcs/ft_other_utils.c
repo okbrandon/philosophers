@@ -6,12 +6,19 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 15:01:01 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:20:26 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Used to display an error message and help if needed.
+ * 
+ * @param message				- message to display
+ * @param help_needed			- display help or not
+ * @return int					- EXIT_FAILURE status code
+ */
 int	ft_error(char *message, int help_needed)
 {
 	printf("%s%s%sAn error occurred: %s%s\n", \
@@ -23,6 +30,11 @@ int	ft_error(char *message, int help_needed)
 	return (EXIT_FAILURE);
 }
 
+/**
+ * @brief Used to get the current timestamp in millis.
+ * 
+ * @return long				- timestamp in millis
+ */
 long	ft_timestamp(void)
 {
 	struct timeval	timeval;
@@ -31,6 +43,16 @@ long	ft_timestamp(void)
 	return ((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000));
 }
 
+/**
+ * @brief Used to print each action of a philosopher.
+ * This will wait a dedicated semaphore to write messages, print it
+ *  and then post the semaphore to prevent mixed up messages.
+ * 
+ * @param data				- pointer to main data structure
+ * @param id				- id of philosopher to display its action
+ * @param action			- action to display
+ * @param do_unlock			- post the write semaphore or not (TRUE or FALSE)
+ */
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 {
 	sem_wait(data->print_sem);
@@ -47,6 +69,12 @@ void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 		sem_post(data->print_sem);
 }
 
+/**
+ * @brief Adjusted usleep function.
+ * 
+ * @param time				- time to sleep in millis
+ * @param data				- pointer to main data structure
+ */
 void	ft_usleep(unsigned int time, t_data *data)
 {
 	unsigned int	end_time;
@@ -59,6 +87,12 @@ void	ft_usleep(unsigned int time, t_data *data)
 	}
 }
 
+/**
+ * @brief Used to free each allocated part of the main data structure.
+ * It'll also close each opened semaphore.
+ * 
+ * @param data				- pointer to main data structure
+ */
 void	ft_safe_exit(t_data *data)
 {
 	int	i;

@@ -6,12 +6,18 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:24:15 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 11:53:26 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:18:28 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Used to initialized each semaphore from the data structure.
+ * 
+ * @param data				- pointer to main data structure
+ * @return int				- returns if there's a problem or not
+ */
 static int	ft_init_semaphores(t_data *data)
 {
 	sem_unlink(EAT_SEM_NAME);
@@ -30,6 +36,13 @@ static int	ft_init_semaphores(t_data *data)
 	return (0);
 }
 
+/**
+ * @brief Used to return an initialized philosophers structure.
+ * This structure contains all needed data from each philosopher.
+ * 
+ * @param data				- main data structure
+ * @return t_philo**		- pointer to philosophers structure
+ */
 static t_philo	**ft_init_philosophers(t_data *data)
 {
 	t_philo	**philos;
@@ -54,6 +67,14 @@ static t_philo	**ft_init_philosophers(t_data *data)
 	return (philos);
 }
 
+/**
+ * @brief Used to return an initialized data structure.
+ * This structure contains all needed data from the program
+ *  and also a pointer to each philosopher's data.
+ * 
+ * @param argv				- argv from main program
+ * @return t_data*			- pointer to data structure
+ */
 t_data	*ft_data_init(char **argv)
 {
 	t_data	*data;

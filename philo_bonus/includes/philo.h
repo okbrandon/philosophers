@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 14:06:30 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:04:35 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@
 
 # define DO_PRINT		TRUE
 
+/**
+ * Structure containing the data of ONE philosopher
+ */
 typedef struct s_philo
 {
 	pid_t			pid;
@@ -58,6 +61,9 @@ typedef struct s_philo
 	struct s_data	*data;
 }				t_philo;
 
+/**
+ * Main structure containing all data
+ */
 typedef struct s_data
 {
 	int				size;
@@ -73,24 +79,34 @@ typedef struct s_data
 	struct s_philo	**philosophers;
 }				t_data;
 
-/* initializer */
+/**
+ * initializer
+ */
 t_data	*ft_data_init(char **argv);
 
-/* args handler */
+/**
+ * args handler
+ */
 int		ft_check_args(int argc, char **argv);
 void	ft_parse_args(t_data *data, char **argv);
 
-/* simulator */
+/**
+ * simulator
+ */
 void	ft_run_simulation(t_data *data);
 
-/* other utils */
+/**
+ * other utils
+ */
 int		ft_error(char *message, int help_needed);
 long	ft_timestamp(void);
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock);
 void	ft_usleep(unsigned int time, t_data *data);
 void	ft_safe_exit(t_data *data);
 
-/* libft utils */
+/**
+ * libft utils
+ */
 int		ft_atoi(char *str);
 void	*ft_calloc(size_t count, size_t size);
 

@@ -6,12 +6,19 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 14:18:52 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:26:24 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Used to run a loop that last until everyone's done eating.
+ * It'll bascially wait for a specific semaphore must_eat times.
+ * 
+ * @param data				- pointer to main data structure
+ * @return void*			- ignored
+ */
 static void	*ft_run_eat_checker(t_data *data)
 {
 	int	i;
@@ -36,6 +43,12 @@ static void	*ft_run_eat_checker(t_data *data)
 	return (NULL);
 }
 
+/**
+ * @brief Used to run a loop that last until the tracked philosopher dies.
+ * 
+ * @param philo				- philosopher to track
+ * @return void*			- ignored
+ */
 static void	*ft_run_death_checker(t_philo *philo)
 {
 	long	difference;
@@ -58,6 +71,13 @@ static void	*ft_run_death_checker(t_philo *philo)
 	return (NULL);
 }
 
+/**
+ * @brief First philosopher's eating part. Manages the fork handling
+ *  and the eating event.
+ * 
+ * @param philo				- pointer to a philosopher data
+ * @param i					- index of philosopher
+ */
 static void	ft_handle_philo_eat(t_philo *philo)
 {
 	sem_wait(philo->data->forks_sem);
@@ -74,6 +94,11 @@ static void	ft_handle_philo_eat(t_philo *philo)
 	sem_post(philo->eat_sem);
 }
 
+/**
+ * @brief Used to handle the life cycle of a philosopher.
+ * 
+ * @param philo				- pointer to a philosopher data
+ */
 static void	ft_handle_philo_life(t_philo *philo)
 {
 	if (philo->id % 2)
@@ -87,6 +112,12 @@ static void	ft_handle_philo_life(t_philo *philo)
 	}
 }
 
+/**
+ * @brief Used to start the philosophers dining problem simulation.
+ * It'll exit the simulation if it fails to create each philosopher's fork.
+ * 
+ * @param data				- pointer to main data stucture
+ */
 void	ft_run_simulation(t_data *data)
 {
 	int	i;

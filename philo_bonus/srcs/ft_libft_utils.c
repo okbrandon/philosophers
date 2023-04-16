@@ -6,12 +6,18 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:08:34 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/01 14:08:46 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:18:52 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief ASCII to Integer function right from libft.
+ * 
+ * @param str				- ASCII char
+ * @return int				- Integer found
+ */
 int	ft_atoi(char *str)
 {
 	int	i;
@@ -38,6 +44,13 @@ int	ft_atoi(char *str)
 	return (result * sign);
 }
 
+/**
+ * @brief calloc remake right from libft.
+ * 
+ * @param count				- number of items to be allocated
+ * @param size				- size of elements
+ * @return void*			- malloc'd items
+ */
 void	*ft_calloc(size_t count, size_t size)
 {
 	void	*pointer;

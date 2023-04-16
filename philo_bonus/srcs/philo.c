@@ -6,12 +6,15 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:26:21 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 14:06:39 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:04:54 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Main program.
+ */
 int	main(int argc, char **argv)
 {
 	t_data	*data;
