@@ -6,12 +6,19 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 12:15:21 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:56:48 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Used to display an error message and help if needed.
+ * 
+ * @param message				- message to display
+ * @param help_needed			- display help or not
+ * @return int					- EXIT_FAILURE status code
+ */
 int	ft_error(char *message, int help_needed)
 {
 	printf("%s%s%sAn error occurred: %s%s\n", \
@@ -23,6 +30,11 @@ int	ft_error(char *message, int help_needed)
 	return (EXIT_FAILURE);
 }
 
+/**
+ * @brief Used to get the current timestamp in millis.
+ * 
+ * @return long				- timestamp in millis
+ */
 long	ft_timestamp(void)
 {
 	struct timeval	timeval;
@@ -31,6 +43,16 @@ long	ft_timestamp(void)
 	return ((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000));
 }
 
+/**
+ * @brief Used to print each action of a philosopher.
+ * This will lock a mutex dedicated to write messages, print it
+ *  and then unlock to prevent mixed up messages.
+ * 
+ * @param data				- pointer to main data structure
+ * @param id				- id of philosopher to display its action
+ * @param action			- action to display
+ * @param do_unlock			- unlock the write mutex or not (TRUE or FALSE)
+ */
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 {
 	pthread_mutex_lock(&data->print_mutex);
@@ -47,6 +69,12 @@ void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 		pthread_mutex_unlock(&data->print_mutex);
 }
 
+/**
+ * @brief Adjusted usleep function.
+ * 
+ * @param time				- time to sleep in millis
+ * @param data				- pointer to main data structure
+ */
 void	ft_usleep(unsigned int time, t_data *data)
 {
 	unsigned int	end_time;
@@ -59,9 +87,12 @@ void	ft_usleep(unsigned int time, t_data *data)
 	}
 }
 
-/***
- * Don't forget to free all the shit dead ass
-*/
+/**
+ * @brief Used to free each allocated part of the main data structure.
+ * It'll also destroy each mutex.
+ * 
+ * @param data				- pointer to main data structure
+ */
 void	ft_safe_exit(t_data *data)
 {
 	int	i;

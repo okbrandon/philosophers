@@ -6,12 +6,19 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:11:36 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 18:40:28 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:42:02 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Used to verify the validity of each argument
+ * 
+ * @param argc				- argc from main program
+ * @param argv				- argv from main program
+ * @return int				- 0 if no problem found
+ */
 int	ft_check_args(int argc, char **argv)
 {
 	int	i;
@@ -35,6 +42,12 @@ int	ft_check_args(int argc, char **argv)
 	return (0);
 }
 
+/**
+ * @brief Used to parse each argument after verification
+ * 
+ * @param data				- main data structure
+ * @param argv				- argv from main program
+ */
 void	ft_parse_args(t_data *data, char **argv)
 {
 	data->size = ft_atoi(argv[1]);

@@ -6,12 +6,18 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 14:17:01 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 17:02:16 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Used to check if all philosophers are done eating or not.
+ * 
+ * @param data				- pointer to main data structure
+ * @return int				- return if everyone's done eating (TRUE or FALSE)
+ */
 static int	ft_run_eat_checker(t_data *data)
 {
 	int	i;
@@ -39,6 +45,12 @@ static int	ft_run_eat_checker(t_data *data)
 	return (0);
 }
 
+/**
+ * @brief Used to run a loop that last until the simulation's done.
+ * It'll check if a philosopher is far away from its last meal.
+ * 
+ * @param data				- pointer to main data structure
+ */
 void	ft_run_death_checker(t_data *data)
 {
 	int		i;
@@ -66,6 +78,13 @@ void	ft_run_death_checker(t_data *data)
 	pthread_mutex_lock(&data->print_mutex);
 }
 
+/**
+ * @brief First philosopher's eating part. Manages the fork handling
+ *  and the eating event.
+ * 
+ * @param data				- pointer to main data structure
+ * @param i					- index of philosopher
+ */
 static void	ft_handle_philo_eat(t_data *data, int i)
 {
 	pthread_mutex_lock(&data->philosophers->forks[i]);
@@ -84,6 +103,11 @@ static void	ft_handle_philo_eat(t_data *data, int i)
 	pthread_mutex_unlock(&data->philosophers->forks[(i + 1) % data->size]);
 }
 
+/**
+ * @brief Used to handle the life cycle of a philosopher.
+ * 
+ * @param data				- pointer to main data structure
+ */
 static void	ft_handle_philo_life(t_data *data)
 {
 	static int	i;
@@ -107,6 +131,12 @@ static void	ft_handle_philo_life(t_data *data)
 	}
 }
 
+/**
+ * @brief Used to start the philosophers dining problem simulation.
+ * It'll exit the simulation if it fails to create each philosopher's thread.
+ * 
+ * @param data				- pointer to main data stucture
+ */
 void	ft_run_simulation(t_data *data)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 12:15:38 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:39:18 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@
 
 # define DO_PRINT	TRUE
 
+/**
+ * Structure containing philosophers data
+ */
 typedef struct s_philosophers
 {
 	int					*total_ate;
@@ -50,6 +53,9 @@ typedef struct s_philosophers
 	pthread_t			*threads;
 }				t_philosophers;
 
+/**
+ * Main structure containing all data
+ */
 typedef struct s_data
 {
 	int						size;

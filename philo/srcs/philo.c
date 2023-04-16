@@ -6,15 +6,15 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/31 11:42:22 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:40:23 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/* 	printf("%s%sjust left all threads%s\n", GREEN, BOLD, RESET);
-	ft_usleep(100, data);
-	printf("%s%severything has been left carefully%s\n", GREEN, BOLD, RESET);*/
+/**
+ * @brief Main program.
+ */
 int	main(int argc, char **argv)
 {
 	t_data			*data;

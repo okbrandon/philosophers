@@ -6,12 +6,19 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/20 10:49:16 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 16:46:36 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
+/**
+ * @brief Used to return an initialized philosophers structure.
+ * This structure contains all needed data from each philosopher.
+ * 
+ * @param data				- main data structure
+ * @return t_philosophers*	- pointer to philosophers structure
+ */
 t_philosophers	*ft_philosophers_init(t_data *data)
 {
 	t_philosophers	*philos;
@@ -34,6 +41,14 @@ t_philosophers	*ft_philosophers_init(t_data *data)
 	return (philos);
 }
 
+/**
+ * @brief Used to return an initialized data structure.
+ * This structure contains all needed data from the program
+ *  and also a pointer to the philosophers stucture.
+ * 
+ * @param argv				- argv from main program
+ * @return t_data*			- pointer to data structure
+ */
 t_data	*ft_data_init(char **argv)
 {
 	t_data	*data;
