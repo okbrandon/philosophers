@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/21 20:31:56 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:15:21 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_error(char *message, int help_needed)
 	return (EXIT_FAILURE);
 }
 
-int	ft_timestamp(void)
+long	ft_timestamp(void)
 {
 	struct timeval	timeval;
 
@@ -37,10 +37,10 @@ void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 	if (DO_PRINT)
 	{
 		if (id >= 0)
-			printf("%-6d %6d %s\n", \
+			printf("%-6ld %6d %s\n", \
 				ft_timestamp() - data->start_time, id, action);
 		else
-			printf("%-11d %s\n", \
+			printf("%-11ld %s\n", \
 				ft_timestamp() - data->start_time, action);
 	}
 	if (do_unlock)

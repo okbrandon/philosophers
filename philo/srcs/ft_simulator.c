@@ -6,11 +6,63 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/10 19:19:44 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:16:09 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static int	ft_run_eat_checker(t_data *data)
+{
+	int	i;
+
+	if (data->must_eat < 0)
+		return (0);
+	i = -1;
+	data->done_eating = 0;
+	while (++i < data->size)
+	{
+		pthread_mutex_lock(&data->var_read);
+		data->eat_count = data->philosophers->total_ate[i];
+		if (data->eat_count >= data->must_eat)
+		{
+			if (++data->done_eating >= data->size)
+			{
+				ft_print_action(data, -1, DONE_EATING, FALSE);
+				return (1);
+			}
+		}
+		pthread_mutex_unlock(&data->var_read);
+	}
+	return (0);
+}
+
+void	ft_run_death_checker(t_data *data)
+{
+	int		i;
+	long	difference;
+
+	while (data->is_simulating)
+	{
+		i = -1;
+		while (++i < data->size)
+		{
+			pthread_mutex_lock(&data->var_modification);
+			difference = (ft_timestamp() - data->start_time) \
+				- data->philosophers->last_meal[i];
+			if (difference >= data->time_to_die)
+			{
+				ft_print_action(data, (i + 1), DIED, FALSE);
+				return ;
+			}
+			if (ft_run_eat_checker(data))
+				return ;
+			pthread_mutex_unlock(&data->var_modification);
+		}
+		ft_usleep(1, data);
+	}
+	pthread_mutex_lock(&data->print_mutex);
+}
 
 static void	ft_handle_philo_eat(t_data *data, int i)
 {
@@ -71,56 +123,4 @@ void	ft_run_simulation(t_data *data)
 		}
 		i++;
 	}
-}
-
-int	ft_run_eat_checker(t_data *data)
-{
-	int	i;
-
-	if (data->must_eat < 0)
-		return (0);
-	i = -1;
-	data->done_eating = 0;
-	while (++i < data->size)
-	{
-		pthread_mutex_lock(&data->var_read);
-		data->eat_count = data->philosophers->total_ate[i];
-		if (data->eat_count >= data->must_eat)
-		{
-			if (++data->done_eating >= data->size)
-			{
-				ft_print_action(data, -1, DONE_EATING, FALSE);
-				return (1);
-			}
-		}
-		pthread_mutex_unlock(&data->var_read);
-	}
-	return (0);
-}
-
-void	ft_run_death_checker(t_data *data)
-{
-	int		i;
-	long	difference;
-
-	while (data->is_simulating)
-	{
-		i = -1;
-		while (++i < data->size)
-		{
-			pthread_mutex_lock(&data->var_modification);
-			difference = (ft_timestamp() - data->start_time) \
-				- data->philosophers->last_meal[i];
-			if (difference >= data->time_to_die)
-			{
-				ft_print_action(data, (i + 1), DIED, FALSE);
-				return ;
-			}
-			if (ft_run_eat_checker(data))
-				return ;
-			pthread_mutex_unlock(&data->var_modification);
-		}
-		ft_usleep(1, data);
-	}
-	pthread_mutex_lock(&data->print_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/03/20 10:48:47 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/16 12:15:38 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_philosophers
 
 typedef struct s_data
 {
-	int						start_time;
 	int						size;
 	int						time_to_die;
 	int						time_to_eat;
@@ -62,6 +61,7 @@ typedef struct s_data
 	int						done_eating;
 	int						is_simulating;
 	int						current_philo_id;
+	long					start_time;
 	pthread_mutex_t			print_mutex;
 	pthread_mutex_t			var_modification;
 	pthread_mutex_t			var_read;
@@ -91,7 +91,7 @@ void			*ft_calloc(size_t count, size_t size);
  * ft_other_utils.c
  */
 int				ft_error(char *message, int help_needed);
-int				ft_timestamp(void);
+long			ft_timestamp(void);
 void			ft_print_action(t_data *data, int id, char *action, \
 								int do_unlock);
 void			ft_usleep(unsigned int time, t_data *data);
