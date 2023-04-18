@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/18 12:25:38 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:14:47 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				must_eat;
 	int				is_simulating;
+	int				child_return;
 	struct timeval	start_time;
 	pthread_t		eat_thread;
 	sem_t			*print_sem;

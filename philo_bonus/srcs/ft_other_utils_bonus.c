@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/18 12:27:39 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:15:11 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,18 @@ void	ft_usleep(unsigned int time, t_data *data)
 void	ft_safe_exit(t_data *data)
 {
 	int	i;
-	int	return_value;
 
-	waitpid(-1, &return_value, 0);
+	waitpid(-1, &data->child_return, 0);
 	if (data->must_eat != 0 && \
-		(WIFEXITED(return_value) || WIFSIGNALED(return_value)))
+		(WIFEXITED(data->child_return) || WIFSIGNALED(data->child_return)))
 	{
 		i = -1;
-		data->is_simulating = FALSE;
-		sem_post(data->total_ate_sem);
+		memset(&data->is_simulating, 0, 1);
 		while (++i < data->size)
+		{
+			sem_post(data->total_ate_sem);
 			kill(data->philosophers[i]->pid, SIGTERM);
+		}
 	}
 	i = -1;
 	while (++i < data->size)
