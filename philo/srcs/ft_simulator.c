@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/18 16:12:09 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:52:37 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static void	ft_handle_philo_life(t_data *data)
 	current_i = i++;
 	pthread_mutex_unlock(&data->philo_life_init);
 	if (current_i % 2)
-		ft_usleep(100, data);
+		ft_usleep(1, data);
 	while (!data->philosophers->done_eating[current_i])
 	{
 		ft_handle_philo_eat(data, current_i);
