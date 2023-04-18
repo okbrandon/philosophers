@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_other_utils.c                                   :+:      :+:    :+:   */
+/*   ft_other_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 17:20:26 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:11:40 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 /**
  * @brief Used to display an error message and help if needed.
@@ -79,6 +79,7 @@ void	ft_usleep(unsigned int time, t_data *data)
 {
 	unsigned int	end_time;
 
+	(void) data;
 	if (time > 0)
 	{
 		end_time = ft_timestamp() + time;
@@ -99,14 +100,14 @@ void	ft_safe_exit(t_data *data)
 	int	return_value;
 
 	waitpid(-1, &return_value, 0);
-	if (data->must_eat > 0)
+	if (data->must_eat != 0 && \
+		(WIFEXITED(return_value) || WIFSIGNALED(return_value)))
 	{
-		if (WIFEXITED(return_value) || WIFSIGNALED(return_value))
-		{
-			i = -1;
-			while (++i < data->size)
-				kill(data->philosophers[i]->pid, SIGKILL);
-		}
+		i = -1;
+		data->is_simulating = FALSE;
+		sem_post(data->total_ate_sem);
+		while (++i < data->size)
+			kill(data->philosophers[i]->pid, SIGTERM);
 	}
 	i = -1;
 	while (++i < data->size)

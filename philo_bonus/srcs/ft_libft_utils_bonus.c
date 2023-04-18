@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_libft_utils.c                                   :+:      :+:    :+:   */
+/*   ft_libft_utils_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:08:34 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 17:18:52 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:11:36 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 /**
  * @brief ASCII to Integer function right from libft.

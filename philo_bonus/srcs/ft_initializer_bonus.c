@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initializer.c                                   :+:      :+:    :+:   */
+/*   ft_initializer_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:24:15 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 17:18:28 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:11:32 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 /**
  * @brief Used to initialized each semaphore from the data structure.

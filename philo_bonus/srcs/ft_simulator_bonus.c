@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_simulator.c                                     :+:      :+:    :+:   */
+/*   ft_simulator_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 17:26:24 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:11:43 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 /**
  * @brief Used to run a loop that last until everyone's done eating.
- * It'll bascially wait for a specific semaphore must_eat times.
+ * It'll bascially wait for a specific semaphore size times.
  * 
  * @param data				- pointer to main data structure
  * @return void*			- ignored
@@ -22,23 +22,19 @@
 static void	*ft_run_eat_checker(t_data *data)
 {
 	int	i;
-	int	done_eating;
 
 	if (data->must_eat < 0 && data->size <= 1)
 		return (NULL);
-	done_eating = 0;
-	while (done_eating < data->must_eat)
-	{
-		i = -1;
-		while (++i < data->size + 1)
-			sem_wait(data->total_ate_sem);
-		done_eating++;
-	}
+	i = -1;
+	while (++i < data->size + 1)
+		sem_wait(data->total_ate_sem);
+	if (!data->is_simulating)
+		exit(EXIT_SUCCESS);
 	ft_print_action(data, -1, DONE_EATING, FALSE);
 	i = -1;
 	if (data->must_eat > 0)
 		while (++i < data->size)
-			kill(data->philosophers[i]->pid, SIGKILL);
+			kill(data->philosophers[i]->pid, SIGTERM);
 	exit(EXIT_SUCCESS);
 	return (NULL);
 }
@@ -63,7 +59,7 @@ static void	*ft_run_death_checker(t_philo *philo)
 		if (difference >= philo->data->time_to_die)
 		{
 			ft_print_action(philo->data, (philo->id + 1), DIED, FALSE);
-			exit(EXIT_SUCCESS);
+			exit(EXIT_FAILURE);
 		}
 		sem_post(philo->eat_sem);
 		ft_usleep(1, philo->data);
@@ -85,7 +81,8 @@ static void	ft_handle_philo_eat(t_philo *philo)
 	sem_wait(philo->data->forks_sem);
 	ft_print_action(philo->data, (philo->id + 1), TOOK_FORK, TRUE);
 	ft_print_action(philo->data, (philo->id + 1), EATING, TRUE);
-	sem_post(philo->data->total_ate_sem);
+	if (++philo->eat_count == philo->data->must_eat)
+		sem_post(philo->data->total_ate_sem);
 	sem_wait(philo->eat_sem);
 	gettimeofday(&philo->last_meal, NULL);
 	ft_usleep(philo->data->time_to_eat, philo->data);
@@ -127,6 +124,7 @@ void	ft_run_simulation(t_data *data)
 		ft_print_action(data, -1, DONE_EATING, FALSE);
 		return ;
 	}
+	data->is_simulating = TRUE;
 	i = 0;
 	while (i < data->size)
 	{

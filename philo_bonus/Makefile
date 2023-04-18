@@ -6,7 +6,7 @@
 #    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/04/16 12:27:20 by bsoubaig         ###   ########.fr        #
+#    Updated: 2023/04/18 11:13:17 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,15 @@ BOLD			= \033[1m
 CLEAR			= \r\033[K
 
 # Executable and compilation
-NAME			= philo
+NAME			= philo_bonus
 
 SRC_DIR			= ./srcs/
-SRCS			= philo.c \
-				  ft_args_handler.c \
-				  ft_initializer.c \
-				  ft_simulator.c \
-				  ft_libft_utils.c \
-				  ft_other_utils.c \
+SRCS			= philo_bonus.c \
+				  ft_args_handler_bonus.c \
+				  ft_initializer_bonus.c \
+				  ft_simulator_bonus.c \
+				  ft_libft_utils_bonus.c \
+				  ft_other_utils_bonus.c \
 
 OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 10:24:05 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 17:04:35 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:10:58 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <stdio.h>
 # include <string.h>
@@ -55,6 +55,7 @@ typedef struct s_philo
 {
 	pid_t			pid;
 	int				id;
+	int				eat_count;
 	struct timeval	last_meal;
 	pthread_t		death_thread;
 	sem_t			*eat_sem;
@@ -71,6 +72,7 @@ typedef struct s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				must_eat;
+	int				is_simulating;
 	long			start_time;
 	pthread_t		eat_thread;
 	sem_t			*print_sem;

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_args_handler.c                                  :+:      :+:    :+:   */
+/*   ft_args_handler_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:08:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 17:40:58 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:11:29 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
 /**
  * @brief Used to check if the current string is containing
