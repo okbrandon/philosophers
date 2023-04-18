@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 16:40:23 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:12:30 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(int argc, char **argv)
 	if (!data->philosophers)
 		return (1);
 	ft_run_simulation(data);
-	ft_run_death_checker(data);
+	if (data->must_eat != 0)
+		ft_run_death_checker(data);
 	ft_usleep(100, data);
 	ft_safe_exit(data);
 	return (0);
