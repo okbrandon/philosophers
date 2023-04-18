@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:24:15 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/18 11:11:32 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:25:45 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_init_semaphores(t_data *data)
 	sem_unlink(EAT_SEM_NAME);
 	sem_unlink(WRITE_SEM_NAME);
 	sem_unlink(FORKS_SEM_NAME);
-	data->total_ate_sem = sem_open(EAT_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
+	data->total_ate_sem = sem_open(EAT_SEM_NAME, O_CREAT | O_EXCL, 0664, 0);
 	if (data->total_ate_sem == SEM_FAILED)
 		return (1);
 	data->print_sem = sem_open(WRITE_SEM_NAME, O_CREAT | O_EXCL, 0664, 1);
@@ -99,6 +99,5 @@ t_data	*ft_data_init(char **argv)
 		return (NULL);
 	}
 	data->philosophers = philosophers;
-	data->start_time = ft_timestamp();
 	return (data);
 }

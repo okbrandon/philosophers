@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:09:26 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/18 11:11:40 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:27:39 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,19 @@ long	ft_timestamp(void)
  */
 void	ft_print_action(t_data *data, int id, char *action, int do_unlock)
 {
+	long	start_time_to_ms;
+
 	sem_wait(data->print_sem);
 	if (DO_PRINT)
 	{
+		start_time_to_ms = (data->start_time.tv_sec * 1000) + \
+			(data->start_time.tv_usec / 1000);
 		if (id >= 0)
 			printf("%-6ld %6d %s\n", \
-				ft_timestamp() - data->start_time, id, action);
+				ft_timestamp() - start_time_to_ms, id, action);
 		else
 			printf("%-11ld %s\n", \
-				ft_timestamp() - data->start_time, action);
+				ft_timestamp() - start_time_to_ms, action);
 	}
 	if (do_unlock)
 		sem_post(data->print_sem);
