@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/18 16:52:44 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:41:07 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	ft_run_simulation(t_data *data)
 	int	i;
 
 	gettimeofday(&data->start_time, NULL);
-	if (data->must_eat == 0)
+	if (data->must_eat == 0 && data->size > 1)
 	{
 		ft_print_action(data, -1, DONE_EATING, FALSE);
 		return ;

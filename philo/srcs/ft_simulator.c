@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/18 16:52:37 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:50:18 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_run_eat_checker(t_data *data)
 {
 	int	i;
 
-	if (data->must_eat < 0)
+	if (data->must_eat < 0 || data->size == 1)
 		return (0);
 	if (data->must_eat == 0)
 		return (ft_print_action(data, -1, DONE_EATING, FALSE), 1);
@@ -141,7 +141,7 @@ void	ft_run_simulation(t_data *data)
 {
 	int	i;
 
-	if (data->must_eat == 0)
+	if (data->must_eat == 0 && data->size > 1)
 	{
 		ft_print_action(data, -1, DONE_EATING, FALSE);
 		return ;
