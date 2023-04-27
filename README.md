@@ -20,6 +20,8 @@
 
 ## 👨‍🏫 Demonstration
 
+https://user-images.githubusercontent.com/103316367/234917126-de4c1755-0030-417e-8915-7237a5b5edc6.mov
+
 > Running simulation with 5 philosophers. `./philo 5 800 200 200` 
 
 ## 📦 Installation
