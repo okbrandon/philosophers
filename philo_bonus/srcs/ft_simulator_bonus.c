@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 00:14:38 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/19 15:41:07 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:31:17 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	ft_handle_philo_eat(t_philo *philo)
 static void	ft_handle_philo_life(t_philo *philo)
 {
 	if (philo->id % 2)
-		ft_usleep(1, philo->data);
+		ft_usleep(60, philo->data);
 	while (1)
 	{
 		ft_handle_philo_eat(philo);
