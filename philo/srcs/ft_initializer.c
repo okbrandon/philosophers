@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 10:56:25 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:41:05 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ t_data	*ft_data_init(char **argv)
 	data->current_philo_id = 0;
 	data->eat_count = 0;
 	data->done_eating = 0;
-	data->is_simulating = 1;
 	data->threads_done = 0;
+	data->is_simulating = true;
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->var_modification, NULL);
 	pthread_mutex_init(&data->var_read, NULL);

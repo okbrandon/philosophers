@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:35:04 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:40:47 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 # define RED 			"\033[0;31m"
 # define PURPLE 		"\033[38;5;141m"
@@ -36,9 +37,6 @@
 # define THINKING		"is thinking"
 # define DIED			"died"
 # define DONE_EATING	"philosophers are done eating"
-
-# define TRUE		1
-# define FALSE		0
 
 /**
  * Structure containing philosophers data
@@ -65,10 +63,10 @@ typedef struct s_data
 	int						must_eat;
 	int						eat_count;
 	int						done_eating;
-	int						is_simulating;
 	int						current_philo_id;
 	int						threads_done;
 	long					start_time;
+	bool					is_simulating;
 	pthread_mutex_t			print_mutex;
 	pthread_mutex_t			var_modification;
 	pthread_mutex_t			var_read;
@@ -80,7 +78,7 @@ typedef struct s_data
 /**
  * ft_args_handler.c
  */
-int				ft_check_args(int argc, char **argv);
+bool			ft_check_args(int argc, char **argv);
 void			ft_parse_args(t_data *data, char **argv);
 
 /**
@@ -98,9 +96,9 @@ void			*ft_calloc(size_t count, size_t size);
 /*
  * ft_other_utils.c
  */
-int				ft_error(char *message, int help_needed);
+int				ft_error(char *message, bool help_needed);
 void			ft_print_action(t_data *data, int id, char *action, \
-								int is_death);
+								bool is_death);
 void			ft_usleep(unsigned int time, t_data *data);
 void			ft_safe_exit(t_data *data);
 
@@ -108,8 +106,8 @@ void			ft_safe_exit(t_data *data);
  * ft_simulator_utils.c
  */
 long			ft_timestamp(void);
-int				ft_is_simulating(t_data *data);
-void			ft_update_simulation(t_data *data, int status);
+bool			ft_is_simulating(t_data *data);
+void			ft_update_simulation(t_data *data, bool status);
 
 /*
  * ft_simulator.c

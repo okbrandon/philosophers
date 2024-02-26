@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:23:18 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:35:40 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:41:29 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ long	ft_timestamp(void)
  * @brief Used to get the simulation status without any race problem.
  * 
  * @param data              - pointer to the main data structure 
- * @return int              - true or false, if simulation is running 
+ * @return bool             - true or false, if simulation is running 
  */
-int	ft_is_simulating(t_data *data)
+bool	ft_is_simulating(t_data *data)
 {
-	int	simulating;
+	bool    simulating;
 
 	pthread_mutex_lock(&data->sim_read);
 	simulating = data->is_simulating;
@@ -47,7 +47,7 @@ int	ft_is_simulating(t_data *data)
  * @param data              - pointer to the main data structure
  * @param status            - new simulation status
  */
-void	ft_update_simulation(t_data *data, int status)
+void	ft_update_simulation(t_data *data, bool status)
 {
 	pthread_mutex_lock(&data->sim_read);
 	data->is_simulating = status;

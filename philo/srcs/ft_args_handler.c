@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_args_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:11:36 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 17:40:37 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:42:45 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
  *  only digits.
  * 
  * @param str				- string to check
- * @return int				- returns its validity
+ * @return bool				- returns its validity
  */
-static int	ft_is_valid(char *str)
+static bool	ft_is_valid(char *str)
 {
 	int	i;
 
@@ -27,10 +27,10 @@ static int	ft_is_valid(char *str)
 	while (str[i])
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
-			return (FALSE);
+			return (false);
 		i++;
 	}
-	return (TRUE);
+	return (true);
 }
 
 /**
@@ -38,9 +38,9 @@ static int	ft_is_valid(char *str)
  * 
  * @param argc				- argc from main program
  * @param argv				- argv from main program
- * @return int				- 0 if no problem found
+ * @return bool				- true if problem found
  */
-int	ft_check_args(int argc, char **argv)
+bool	ft_check_args(int argc, char **argv)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ int	ft_check_args(int argc, char **argv)
 			return (ft_error("some arguments aren't valid", 0));
 		i++;
 	}
-	return (FALSE);
+	return (false);
 }
 
 /**

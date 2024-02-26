@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:28:17 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:40:16 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param help_needed			- display help or not
  * @return int					- EXIT_FAILURE status code
  */
-int	ft_error(char *message, int help_needed)
+int	ft_error(char *message, bool help_needed)
 {
 	printf("%s%s%sAn error occurred: %s%s\n", \
 		RESET, RED, BOLD, RESET, message);
@@ -40,7 +40,7 @@ int	ft_error(char *message, int help_needed)
  * @param action			- action to display
  * @param is_death			- is the action death (true or false)
  */
-void	ft_print_action(t_data *data, int id, char *action, int is_death)
+void	ft_print_action(t_data *data, int id, char *action, bool is_death)
 {
 	pthread_mutex_lock(&data->print_mutex);
 	if (ft_is_simulating(data))

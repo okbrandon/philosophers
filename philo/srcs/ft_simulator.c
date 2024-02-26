@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:33:20 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:42:11 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @brief Used to check if all philosophers are done eating or not.
  * 
  * @param data				- pointer to main data structure
- * @return int				- return if everyone's done eating (TRUE or FALSE)
+ * @return int				- return if everyone's done eating (true or false)
  */
 static int	ft_run_eat_checker(t_data *data)
 {
@@ -37,7 +37,7 @@ static int	ft_run_eat_checker(t_data *data)
 			if (++data->done_eating >= data->size)
 			{
 				pthread_mutex_unlock(&data->var_read);
-				ft_print_action(data, -1, DONE_EATING, FALSE);
+				ft_print_action(data, -1, DONE_EATING, false);
 				return (1);
 			}
 		}
@@ -65,13 +65,13 @@ void	ft_run_death_checker(t_data *data)
 			if ((ft_timestamp() - data->start_time) \
 				- data->philosophers->last_meal[i] > data->time_to_die)
 			{
-				ft_update_simulation(data, FALSE);
-				ft_print_action(data, (i + 1), DIED, TRUE);
+				ft_update_simulation(data, false);
+				ft_print_action(data, (i + 1), DIED, true);
 				break ;
 			}
 			if (ft_run_eat_checker(data))
 			{
-				ft_update_simulation(data, FALSE);
+				ft_update_simulation(data, false);
 				break ;
 			}
 			pthread_mutex_unlock(&data->var_modification);
@@ -96,10 +96,10 @@ static void	ft_handle_philo_eat(t_data *data, int i)
 	l_fork = data->philosophers->hands[i][0];
 	r_fork = data->philosophers->hands[i][1];
 	pthread_mutex_lock(&data->philosophers->forks[l_fork]);
-	ft_print_action(data, (i + 1), TOOK_FORK, FALSE);
+	ft_print_action(data, (i + 1), TOOK_FORK, false);
 	pthread_mutex_lock(&data->philosophers->forks[r_fork]);
-	ft_print_action(data, (i + 1), TOOK_FORK, FALSE);
-	ft_print_action(data, (i + 1), EATING, FALSE);
+	ft_print_action(data, (i + 1), TOOK_FORK, false);
+	ft_print_action(data, (i + 1), EATING, false);
 	pthread_mutex_lock(&data->var_modification);
 	data->philosophers->last_meal[i] = (ft_timestamp() - data->start_time);
 	pthread_mutex_unlock(&data->var_modification);
@@ -129,9 +129,9 @@ static void	ft_handle_philo_life(t_data *data)
 	while (ft_is_simulating(data))
 	{
 		ft_handle_philo_eat(data, current_i);
-		ft_print_action(data, (current_i + 1), SLEEPING, FALSE);
+		ft_print_action(data, (current_i + 1), SLEEPING, false);
 		ft_usleep(data->time_to_sleep, data);
-		ft_print_action(data, (current_i + 1), THINKING, FALSE);
+		ft_print_action(data, (current_i + 1), THINKING, false);
 	}
 	pthread_mutex_lock(&data->var_modification);
 	data->threads_done++;
@@ -150,7 +150,7 @@ void	ft_run_simulation(t_data *data)
 
 	if (data->must_eat == 0 && data->size > 1)
 	{
-		ft_print_action(data, -1, DONE_EATING, FALSE);
+		ft_print_action(data, -1, DONE_EATING, false);
 		return ;
 	}
 	i = 0;
@@ -159,8 +159,8 @@ void	ft_run_simulation(t_data *data)
 		if (pthread_create(&data->philosophers->threads[i], NULL, \
 				(void *) ft_handle_philo_life, data) != 0)
 		{
-			ft_error("thread creation has failed", FALSE);
-			ft_update_simulation(data, FALSE);
+			ft_error("thread creation has failed", false);
+			ft_update_simulation(data, false);
 			return ;
 		}
 		i++;
