@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:23:18 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:41:29 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:46:04 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ long	ft_timestamp(void)
  */
 bool	ft_is_simulating(t_data *data)
 {
-	bool    simulating;
+	bool	simulating;
 
 	pthread_mutex_lock(&data->sim_read);
 	simulating = data->is_simulating;
