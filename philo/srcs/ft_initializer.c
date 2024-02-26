@@ -3,14 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initializer.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:00:45 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 16:46:36 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:56:25 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+/**
+ * @brief Used to return an initialized hands array.
+ * This array contains the id of each philosopher's left and right fork.
+ * 
+ * @param data				- main data structure
+ * @return hands**			- hands with fork ids
+ */
+int	**ft_hands_init(t_data *data)
+{
+	int	**hands;
+	int	i;
+
+	hands = ft_calloc(data->size, sizeof(int *));
+	if (!hands)
+		return (NULL);
+	i = -1;
+	while (++i < data->size)
+	{
+		hands[i] = ft_calloc(2, sizeof(int));
+		hands[i][0] = i;
+		hands[i][1] = (i + 1) % data->size;
+		if (i % 2)
+		{
+			hands[i][0] = (i + 1) % data->size;
+			hands[i][1] = i;
+		}
+	}
+	return (hands);
+}
 
 /**
  * @brief Used to return an initialized philosophers structure.
@@ -38,6 +68,7 @@ t_philosophers	*ft_philosophers_init(t_data *data)
 	i = 0;
 	while (i < data->size)
 		pthread_mutex_init(&philos->forks[i++], NULL);
+	philos->hands = ft_hands_init(data);
 	return (philos);
 }
 
@@ -65,9 +96,11 @@ t_data	*ft_data_init(char **argv)
 	data->eat_count = 0;
 	data->done_eating = 0;
 	data->is_simulating = 1;
+	data->threads_done = 0;
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->var_modification, NULL);
 	pthread_mutex_init(&data->var_read, NULL);
+	pthread_mutex_init(&data->sim_read, NULL);
 	pthread_mutex_init(&data->philo_life_init, NULL);
 	return (data);
 }

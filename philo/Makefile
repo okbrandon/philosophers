@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+         #
+#    By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/20 14:04:36 by bsoubaig          #+#    #+#              #
-#    Updated: 2023/04/16 12:27:55 by bsoubaig         ###   ########.fr        #
+#    Updated: 2024/02/26 11:28:30 by bsoubaig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,17 +28,35 @@ SRCS			= philo.c \
 				  ft_initializer.c \
 				  ft_libft_utils.c \
 				  ft_other_utils.c \
+				  ft_simulator_utils.c \
 				  ft_simulator.c \
 
 OBJ_DIR			= ./objs/
 OBJS			= ${addprefix ${OBJ_DIR}, ${SRCS:.c=.o}}
 
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -arch x86_64
+CFLAGS			= -Wall -Wextra -Werror
 RM				= rm -rf
 
+# Checking OS type
+UNAME_S := $(shell uname -s)
+
+ifneq ($(UNAME_S),Linux)
+ifneq ($(UNAME_S),Darwin)
+	$(error Unsupported OS $(UNAME_S))
+endif
+endif
+
+# Adding a specific flag for MacOS not Intel based
+ifeq ($(UNAME_S),Darwin)
+	CFLAGS += -arch x86_64
+endif
+
+# Debug compilation is launched
 ifdef DEBUG
-	CFLAGS += -fsanitize=thread
+ifeq ($(UNAME_S),Linux)
+	CFLAGS += -fsanitize=thread -g
+endif
 endif
 
 ${OBJ_DIR}%.o:	${SRC_DIR}%.c

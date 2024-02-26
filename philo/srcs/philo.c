@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/19 16:59:32 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:35:09 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	main(int argc, char **argv)
 	if (!data)
 		return (1);
 	data->philosophers = ft_philosophers_init(data);
-	if (!data->philosophers)
+	if (!data->philosophers || !data->philosophers->hands)
 		return (1);
 	ft_run_simulation(data);
 	ft_run_death_checker(data);
-	ft_usleep(100, data);
+	ft_wait_for_threads(data);
 	ft_safe_exit(data);
 	return (0);
 }

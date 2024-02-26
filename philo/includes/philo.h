@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/16 16:39:18 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:35:04 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <stdint.h>
 
 # define RED 			"\033[0;31m"
 # define PURPLE 		"\033[38;5;141m"
@@ -39,8 +40,6 @@
 # define TRUE		1
 # define FALSE		0
 
-# define DO_PRINT	TRUE
-
 /**
  * Structure containing philosophers data
  */
@@ -51,6 +50,7 @@ typedef struct s_philosophers
 	long				*last_meal;
 	pthread_mutex_t		*forks;
 	pthread_t			*threads;
+	int					**hands;
 }				t_philosophers;
 
 /**
@@ -67,10 +67,12 @@ typedef struct s_data
 	int						done_eating;
 	int						is_simulating;
 	int						current_philo_id;
+	int						threads_done;
 	long					start_time;
 	pthread_mutex_t			print_mutex;
 	pthread_mutex_t			var_modification;
 	pthread_mutex_t			var_read;
+	pthread_mutex_t			sim_read;
 	pthread_mutex_t			philo_life_init;
 	struct s_philosophers	*philosophers;
 }				t_data;
@@ -97,16 +99,23 @@ void			*ft_calloc(size_t count, size_t size);
  * ft_other_utils.c
  */
 int				ft_error(char *message, int help_needed);
-long			ft_timestamp(void);
 void			ft_print_action(t_data *data, int id, char *action, \
-								int do_unlock);
+								int is_death);
 void			ft_usleep(unsigned int time, t_data *data);
 void			ft_safe_exit(t_data *data);
+
+/*
+ * ft_simulator_utils.c
+ */
+long			ft_timestamp(void);
+int				ft_is_simulating(t_data *data);
+void			ft_update_simulation(t_data *data, int status);
 
 /*
  * ft_simulator.c
  */
 void			ft_run_death_checker(t_data *data);
 void			ft_run_simulation(t_data *data);
+void			ft_wait_for_threads(t_data *data);
 
 #endif

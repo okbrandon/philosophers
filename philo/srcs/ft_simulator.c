@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_simulator.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsoubaig <bsoubaig@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2023/04/27 17:30:29 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:33:20 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	ft_run_eat_checker(t_data *data)
 		{
 			if (++data->done_eating >= data->size)
 			{
+				pthread_mutex_unlock(&data->var_read);
 				ft_print_action(data, -1, DONE_EATING, FALSE);
 				return (1);
 			}
@@ -54,28 +55,30 @@ static int	ft_run_eat_checker(t_data *data)
 void	ft_run_death_checker(t_data *data)
 {
 	int		i;
-	long	difference;
 
-	while (data->is_simulating)
+	while (ft_is_simulating(data))
 	{
 		i = -1;
 		while (++i < data->size)
 		{
 			pthread_mutex_lock(&data->var_modification);
-			difference = (ft_timestamp() - data->start_time) \
-				- data->philosophers->last_meal[i];
-			if (difference >= data->time_to_die)
+			if ((ft_timestamp() - data->start_time) \
+				- data->philosophers->last_meal[i] > data->time_to_die)
 			{
-				ft_print_action(data, (i + 1), DIED, FALSE);
-				return ;
+				ft_update_simulation(data, FALSE);
+				ft_print_action(data, (i + 1), DIED, TRUE);
+				break ;
 			}
 			if (ft_run_eat_checker(data))
-				return ;
+			{
+				ft_update_simulation(data, FALSE);
+				break ;
+			}
 			pthread_mutex_unlock(&data->var_modification);
 		}
 		ft_usleep(1, data);
 	}
-	pthread_mutex_lock(&data->print_mutex);
+	pthread_mutex_unlock(&data->var_modification);
 }
 
 /**
@@ -87,11 +90,16 @@ void	ft_run_death_checker(t_data *data)
  */
 static void	ft_handle_philo_eat(t_data *data, int i)
 {
-	pthread_mutex_lock(&data->philosophers->forks[i]);
-	ft_print_action(data, (i + 1), TOOK_FORK, TRUE);
-	pthread_mutex_lock(&data->philosophers->forks[(i + 1) % data->size]);
-	ft_print_action(data, (i + 1), TOOK_FORK, TRUE);
-	ft_print_action(data, (i + 1), EATING, TRUE);
+	int	l_fork;
+	int	r_fork;
+
+	l_fork = data->philosophers->hands[i][0];
+	r_fork = data->philosophers->hands[i][1];
+	pthread_mutex_lock(&data->philosophers->forks[l_fork]);
+	ft_print_action(data, (i + 1), TOOK_FORK, FALSE);
+	pthread_mutex_lock(&data->philosophers->forks[r_fork]);
+	ft_print_action(data, (i + 1), TOOK_FORK, FALSE);
+	ft_print_action(data, (i + 1), EATING, FALSE);
 	pthread_mutex_lock(&data->var_modification);
 	data->philosophers->last_meal[i] = (ft_timestamp() - data->start_time);
 	pthread_mutex_unlock(&data->var_modification);
@@ -99,8 +107,8 @@ static void	ft_handle_philo_eat(t_data *data, int i)
 	pthread_mutex_lock(&data->var_modification);
 	data->philosophers->total_ate[i]++;
 	pthread_mutex_unlock(&data->var_modification);
-	pthread_mutex_unlock(&data->philosophers->forks[i]);
-	pthread_mutex_unlock(&data->philosophers->forks[(i + 1) % data->size]);
+	pthread_mutex_unlock(&data->philosophers->forks[r_fork]);
+	pthread_mutex_unlock(&data->philosophers->forks[l_fork]);
 }
 
 /**
@@ -118,17 +126,16 @@ static void	ft_handle_philo_life(t_data *data)
 	pthread_mutex_unlock(&data->philo_life_init);
 	if (current_i % 2)
 		ft_usleep(60, data);
-	while (!data->philosophers->done_eating[current_i])
+	while (ft_is_simulating(data))
 	{
 		ft_handle_philo_eat(data, current_i);
-		pthread_mutex_lock(&data->var_read);
-		if (!data->is_simulating)
-			return ;
-		pthread_mutex_unlock(&data->var_read);
-		ft_print_action(data, (current_i + 1), SLEEPING, TRUE);
+		ft_print_action(data, (current_i + 1), SLEEPING, FALSE);
 		ft_usleep(data->time_to_sleep, data);
-		ft_print_action(data, (current_i + 1), THINKING, TRUE);
+		ft_print_action(data, (current_i + 1), THINKING, FALSE);
 	}
+	pthread_mutex_lock(&data->var_modification);
+	data->threads_done++;
+	pthread_mutex_unlock(&data->var_modification);
 }
 
 /**
@@ -153,9 +160,7 @@ void	ft_run_simulation(t_data *data)
 				(void *) ft_handle_philo_life, data) != 0)
 		{
 			ft_error("thread creation has failed", FALSE);
-			pthread_mutex_lock(&data->var_modification);
-			data->is_simulating = FALSE;
-			pthread_mutex_unlock(&data->var_modification);
+			ft_update_simulation(data, FALSE);
 			return ;
 		}
 		i++;
