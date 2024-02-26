@@ -6,53 +6,20 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:42:11 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:50:24 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
 /**
- * @brief Used to check if all philosophers are done eating or not.
- * 
- * @param data				- pointer to main data structure
- * @return int				- return if everyone's done eating (true or false)
- */
-static int	ft_run_eat_checker(t_data *data)
-{
-	int	i;
-
-	if (data->must_eat < 0 || data->size == 1)
-		return (0);
-	if (data->must_eat == 0)
-		return (1);
-	i = -1;
-	data->done_eating = 0;
-	while (++i < data->size)
-	{
-		pthread_mutex_lock(&data->var_read);
-		data->eat_count = data->philosophers->total_ate[i];
-		if (data->eat_count >= data->must_eat)
-		{
-			if (++data->done_eating >= data->size)
-			{
-				pthread_mutex_unlock(&data->var_read);
-				ft_print_action(data, -1, DONE_EATING, false);
-				return (1);
-			}
-		}
-		pthread_mutex_unlock(&data->var_read);
-	}
-	return (0);
-}
-
-/**
  * @brief Used to run a loop that last until the simulation's done.
- * It'll check if a philosopher is far away from its last meal.
+ * It'll check if a philosopher is far away from its last meal AND/OR
+ *  if they are done eating.
  * 
  * @param data				- pointer to main data structure
  */
-void	ft_run_death_checker(t_data *data)
+void	ft_run_watcher(t_data *data)
 {
 	int		i;
 
@@ -69,7 +36,7 @@ void	ft_run_death_checker(t_data *data)
 				ft_print_action(data, (i + 1), DIED, true);
 				break ;
 			}
-			if (ft_run_eat_checker(data))
+			if (ft_check_philosophers_meals(data))
 			{
 				ft_update_simulation(data, false);
 				break ;

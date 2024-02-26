@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:40:47 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:52:23 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void			ft_safe_exit(t_data *data);
 /*
  * ft_simulator_utils.c
  */
+bool			ft_check_philosophers_meals(t_data *data);
 long			ft_timestamp(void);
 bool			ft_is_simulating(t_data *data);
 void			ft_update_simulation(t_data *data, bool status);
@@ -112,7 +113,7 @@ void			ft_update_simulation(t_data *data, bool status);
 /*
  * ft_simulator.c
  */
-void			ft_run_death_checker(t_data *data);
+void			ft_run_watcher(t_data *data);
 void			ft_run_simulation(t_data *data);
 void			ft_wait_for_threads(t_data *data);
 
