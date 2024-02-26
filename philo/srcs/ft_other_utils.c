@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:13:35 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:40:16 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:02:20 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,5 @@ void	ft_safe_exit(t_data *data)
 	free(data->philosophers->total_ate);
 	free(data->philosophers->threads);
 	free(data->philosophers);
+	free(data);
 }

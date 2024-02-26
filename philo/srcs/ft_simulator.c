@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 18:35:58 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:50:24 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:59:26 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,22 @@ static void	ft_handle_philo_life(t_data *data)
 	pthread_mutex_lock(&data->var_modification);
 	data->threads_done++;
 	pthread_mutex_unlock(&data->var_modification);
+}
+
+/**
+ * @brief HORRIFIC way to start the philosophers dining problem simulation
+ *  with only 1 philosopher. It'll fake the simulation.
+ * 
+ * @param data				- pointer to the main data structure
+ */
+void	ft_run_single_simulation(t_data *data)
+{
+	long	start;
+
+	start = ft_timestamp();
+	printf("%-6ld %6d %s\n", ft_timestamp() - start, 1, TOOK_FORK);
+	ft_usleep(data->time_to_die, data);
+	printf("%-6ld %6d %s\n", ft_timestamp() - start, 1, DIED);
 }
 
 /**
