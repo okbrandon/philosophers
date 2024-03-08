@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:09:06 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 11:56:51 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:59:02 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void			ft_update_simulation(t_data *data, bool status);
  * ft_simulator.c
  */
 void			ft_run_watcher(t_data *data);
-void			ft_run_single_simulation(t_data *data);
 void			ft_run_simulation(t_data *data);
 void			ft_wait_for_threads(t_data *data);
 

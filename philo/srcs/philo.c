@@ -6,7 +6,7 @@
 /*   By: bsoubaig <bsoubaig@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:07:25 by bsoubaig          #+#    #+#             */
-/*   Updated: 2024/02/26 12:01:41 by bsoubaig         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:58:14 by bsoubaig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,9 @@ int	main(int argc, char **argv)
 	data->philosophers = ft_philosophers_init(data);
 	if (!data->philosophers || !data->philosophers->hands)
 		return (EXIT_FAILURE);
-	if (data->size == 1)
-		ft_run_single_simulation(data);
-	else
-	{
-		ft_run_simulation(data);
-		ft_run_watcher(data);
-		ft_wait_for_threads(data);
-	}
+	ft_run_simulation(data);
+	ft_run_watcher(data);
+	ft_wait_for_threads(data);
 	ft_safe_exit(data);
 	return (EXIT_SUCCESS);
 }
